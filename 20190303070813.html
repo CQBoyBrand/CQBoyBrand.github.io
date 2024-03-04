@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/favicon.ico" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha256-CTSx/A06dm1B063156EVh15m6Y67pAjZZaQc89LLSrU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"brandhuang.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.18.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="我现在所做的项目是一个客服系统（类似类似阿里旺旺吧？），之前产品的聊天功能就只是发送文字、图片和一些emoji表情，现在需要在项目中添加发送语音和15秒的短视频（限制时长的视频，不一定要15秒）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cordova开发app——短视频拍摄">
+<meta property="og:url" content="http://brandhuang.com/20190303070813.html">
+<meta property="og:site_name" content="重庆崽儿Brand博客">
+<meta property="og:description" content="我现在所做的项目是一个客服系统（类似类似阿里旺旺吧？），之前产品的聊天功能就只是发送文字、图片和一些emoji表情，现在需要在项目中添加发送语音和15秒的短视频（限制时长的视频，不一定要15秒）">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-03-02T23:08:13.000Z">
+<meta property="article:modified_time" content="2024-03-03T09:25:32.612Z">
+<meta property="article:author" content="重庆崽儿Brand">
+<meta property="article:tag" content="重庆崽儿brand，vue，nuxt，blog，首页，JavaScript，js，css，html，web前端，前端开发，个人博客">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://brandhuang.com/20190303070813.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://brandhuang.com/20190303070813.html","path":"20190303070813.html","title":"Cordova开发app——短视频拍摄"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Cordova开发app——短视频拍摄 | 重庆崽儿Brand博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">重庆崽儿Brand博客</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AC%E6%96%87%E4%B8%BB%E8%A6%81%E7%94%A8%E5%88%B0%E7%9A%84%E6%8F%92%E4%BB%B6%E6%98%AF%EF%BC%9Acordova-plugin-media-capture"><span class="nav-number">1.</span> <span class="nav-text">本文主要用到的插件是：cordova-plugin-media-capture</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8"><span class="nav-number">1.1.</span> <span class="nav-text">简单使用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%EF%BC%9A"><span class="nav-number">1.1.1.</span> <span class="nav-text">安装：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%9C%80%E8%A6%81%E5%9C%A8deviceReady%E5%90%8E%E8%BF%9B%E8%A1%8C%E6%96%B9%E6%B3%95%E8%B0%83%E7%94%A8"><span class="nav-number">1.1.2.</span> <span class="nav-text">需要在deviceReady后进行方法调用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%EF%BC%9A"><span class="nav-number">1.1.3.</span> <span class="nav-text">使用：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9C%80%E8%A6%81%E6%B3%A8%E6%84%8F%E4%B8%8B%EF%BC%81%EF%BC%81"><span class="nav-number">2.</span> <span class="nav-text">需要注意下！！</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BD%AC%E7%A0%81%E5%90%8E%E5%8F%88%E4%B8%80%E4%B8%AA%E9%97%AE%E9%A2%98%E9%9C%80%E6%B3%A8%E6%84%8F%EF%BC%9A"><span class="nav-number">2.0.1.</span> <span class="nav-text">转码后又一个问题需注意：</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="重庆崽儿Brand"
+      src="/images/author.jpg">
+  <p class="site-author-name" itemprop="name">重庆崽儿Brand</p>
+  <div class="site-description" itemprop="description">重庆崽儿brand的个人博客，重庆崽儿brand的生活记录，重庆崽儿brand的前端学习</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">61</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://brandhuang.com/20190303070813.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/author.jpg">
+      <meta itemprop="name" content="重庆崽儿Brand">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="重庆崽儿Brand博客">
+      <meta itemprop="description" content="重庆崽儿brand的个人博客，重庆崽儿brand的生活记录，重庆崽儿brand的前端学习">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Cordova开发app——短视频拍摄 | 重庆崽儿Brand博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Cordova开发app——短视频拍摄
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-03-03 07:08:13" itemprop="dateCreated datePublished" datetime="2019-03-03T07:08:13+08:00">2019-03-03</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>我现在所做的项目是一个<strong>客服系统</strong>（类似类似阿里旺旺吧？），之前产品的聊天功能就只是<strong>发送文字、图片和一些emoji表情</strong>，现在需要在项目中添加发送语音和15秒的短视频（限制时长的视频，不一定要15秒）</p>
+<span id="more"></span>
+
+
+<p>前一篇文章写了发送语音的功能，这片文章写一下录制短视频的功能。</p>
+<p>我现在所做的项目是一个<strong>客服系统</strong>（类似类似阿里旺旺吧？），之前产品的聊天功能就只是<strong>发送文字、图片和一些emoji表情</strong>，现在需要在项目中添加发送语音和15秒的短视频（限制时长的视频，不一定要15秒）</p>
+<p>如果我们用 让用户选择设备上已经录好的视频进行上传的方式进行发送其实也是可以的，但是我们就不好<strong>控制视频的时长</strong>了，视频时间太长文件也必然很大，会占用很多的空间，所以我们选择了让用户<strong>在我们自己app中进行录制</strong>的方案，这样就可以根据控制视频时间的长度，来把视频的大小控制在较小的范围内。</p>
+<h3 id="本文主要用到的插件是：cordova-plugin-media-capture"><a href="#本文主要用到的插件是：cordova-plugin-media-capture" class="headerlink" title="本文主要用到的插件是：cordova-plugin-media-capture"></a>本文主要用到的插件是：cordova-plugin-media-capture</h3><p>插件GitHub地址：<a target="_blank" rel="noopener" href="https://github.com/apache/cordova-plugin-media-capture">cordova-plugin-media-capture</a></p>
+<blockquote>
+<p>该插件既可以录音也可以录制视频，但是在安卓手机上，录音的时候会打开手机自带的录音机APP进行录音，感觉体验不是很好，所以我只用了该插件录视频的功能。</p>
+</blockquote>
+<h4 id="简单使用"><a href="#简单使用" class="headerlink" title="简单使用"></a>简单使用</h4><h5 id="安装："><a href="#安装：" class="headerlink" title="安装："></a>安装：</h5><figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cordova plugin add cordova-plugin-media-capture</span><br></pre></td></tr></table></figure>
+<h5 id="需要在deviceReady后进行方法调用"><a href="#需要在deviceReady后进行方法调用" class="headerlink" title="需要在deviceReady后进行方法调用"></a>需要在deviceReady后进行方法调用</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">document</span>.<span class="title function_">addEventListener</span>(<span class="string">&quot;deviceready&quot;</span>, onDeviceReady, <span class="literal">false</span>);</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">onDeviceReady</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(navigator.<span class="property">device</span>.<span class="property">capture</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="使用："><a href="#使用：" class="headerlink" title="使用："></a>使用：</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">navigator.<span class="property">device</span>.<span class="property">capture</span>.<span class="title function_">captureVideo</span>(</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">videoSuccess</span>,<span class="comment">// 视频录制成功后的处理</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">videoError</span>, <span class="comment">// 视频录制失败后的处理</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">duration</span>: <span class="number">15</span>,<span class="comment">// 限制录制的视频时间长度，单位：/秒</span></span><br><span class="line">        <span class="attr">limit</span>:<span class="number">1</span> <span class="comment">// 非必填，不写此项时，默认为1</span></span><br><span class="line">        <span class="comment">// 在ios一次只能录一个视频，</span></span><br><span class="line">        <span class="comment">//在Android上，连续录制视频的个数受limit的限制</span></span><br><span class="line">    &#125;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>视频上传插件和前一篇文章用的一样，方法就不在介绍了</p>
+</blockquote>
+<p>上传插件的简单使用可以看我的上一篇文章：<a target="_blank" rel="noopener" href="http://www.brandhuang.com/article/73">Cordova开发app，使用插件录音并上传服务器</a></p>
+<h3 id="需要注意下！！"><a href="#需要注意下！！" class="headerlink" title="需要注意下！！"></a>需要注意下！！</h3><p>在Android上录制的视频是mp4格式的，在其他设备上能很好的播放，但是在ios上，录制的视频是mov格式的，所以需要做转码处理后才能在其他设备上播放（可以前端处理，也可以上传到服务器后在后端处理，）</p>
+<h5 id="转码后又一个问题需注意："><a href="#转码后又一个问题需注意：" class="headerlink" title="转码后又一个问题需注意："></a>转码后又一个问题需注意：</h5><p>不是所有的mp4格式在ios设备上都能正常播放！！！</p>
+<p>之前转码的mp4在安卓上正常播放，但是在ios上，播放的视频没有声音！！！</p>
+<p>网上搜了下，说是音轨问题，</p>
+<blockquote>
+<p>百度说：iphone自带播放器只识别AAC的音频，所以视频转换MP4，编码方式选择H264+AAC或 MPEG4+AAC就行了。</p>
+</blockquote>
+<p>所以转码的时候需要注意，目前我们项目因为是在服务端转码的，所有后端正在处理这个问题～</p>
+<p>这就是文章的全部内容了，感谢阅读！<br>欢迎留言探讨～</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/20190217202211.html" rel="prev" title="Cordova开发app——使用插件录音并上传服务器">
+                  <i class="fa fa-angle-left"></i> Cordova开发app——使用插件录音并上传服务器
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/20190308070302.html" rel="next" title="2019读书计划(1)——《奔跑吧，程序员》">
+                  2019读书计划(1)——《奔跑吧，程序员》 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">渝ICP备17014610号 </a>
+      <img src="/images/beian.png" alt=""><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=50011702500392" rel="noopener" target="_blank">渝公网安备50011702500392号 </a>
+  </div>
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">重庆崽儿Brand</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>

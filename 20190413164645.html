@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/favicon.ico" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha256-CTSx/A06dm1B063156EVh15m6Y67pAjZZaQc89LLSrU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"brandhuang.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.18.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="（移动端项目中）长按聊天消息，出现一个弹出层，进行消息撤回操作，点击弹出层之外的其他地方需要隐藏该弹出层。记录下这里遇到的坑。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="移动端的touch事件和click事件遇到的坑">
+<meta property="og:url" content="http://brandhuang.com/20190413164645.html">
+<meta property="og:site_name" content="重庆崽儿Brand博客">
+<meta property="og:description" content="（移动端项目中）长按聊天消息，出现一个弹出层，进行消息撤回操作，点击弹出层之外的其他地方需要隐藏该弹出层。记录下这里遇到的坑。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-04-13T08:46:45.000Z">
+<meta property="article:modified_time" content="2024-03-04T03:33:58.898Z">
+<meta property="article:author" content="重庆崽儿Brand">
+<meta property="article:tag" content="重庆崽儿brand，vue，nuxt，blog，首页，JavaScript，js，css，html，web前端，前端开发，个人博客">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://brandhuang.com/20190413164645.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://brandhuang.com/20190413164645.html","path":"20190413164645.html","title":"移动端的touch事件和click事件遇到的坑"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>移动端的touch事件和click事件遇到的坑 | 重庆崽儿Brand博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">重庆崽儿Brand博客</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E9%9C%80%E6%B1%82%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">项目需求：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9C%80%E6%B1%82%E5%AE%9E%E7%8E%B0%EF%BC%9A"><span class="nav-number">2.</span> <span class="nav-text">需求实现：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E4%B8%80%EF%BC%9A"><span class="nav-number">3.</span> <span class="nav-text">问题一：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E4%BA%8C%EF%BC%9A"><span class="nav-number">4.</span> <span class="nav-text">问题二：</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="重庆崽儿Brand"
+      src="/images/author.jpg">
+  <p class="site-author-name" itemprop="name">重庆崽儿Brand</p>
+  <div class="site-description" itemprop="description">重庆崽儿brand的个人博客，重庆崽儿brand的生活记录，重庆崽儿brand的前端学习</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">61</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://brandhuang.com/20190413164645.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/author.jpg">
+      <meta itemprop="name" content="重庆崽儿Brand">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="重庆崽儿Brand博客">
+      <meta itemprop="description" content="重庆崽儿brand的个人博客，重庆崽儿brand的生活记录，重庆崽儿brand的前端学习">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="移动端的touch事件和click事件遇到的坑 | 重庆崽儿Brand博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          移动端的touch事件和click事件遇到的坑
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-04-13 16:46:45" itemprop="dateCreated datePublished" datetime="2019-04-13T16:46:45+08:00">2019-04-13</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>（移动端项目中）长按聊天消息，出现一个弹出层，进行消息撤回操作，点击弹出层之外的其他地方需要隐藏该弹出层。记录下这里遇到的坑。</p>
+<span id="more"></span>
+
+<h4 id="项目需求："><a href="#项目需求：" class="headerlink" title="项目需求："></a>项目需求：</h4><p>（移动端项目中）长按聊天消息，出现一个弹出层，进行消息撤回操作，点击弹出层之外的其他地方需要隐藏该弹出层。</p>
+<p>基础html代码：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">&quot;press-operation&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span>复制<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span>撤回<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> @<span class="attr">touchstart</span>=<span class="string">&quot;keepPress($event)&quot;</span> @<span class="attr">touchmove</span>=<span class="string">&quot;&quot;</span> @<span class="attr">touchend</span>=<span class="string">&quot;keepPressEnd($event)&quot;</span> @<span class="attr">touchcancel</span>=<span class="string">&quot;&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">img</span> <span class="attr">class</span>=<span class="string">&quot;img&quot;</span> <span class="attr">src</span>=<span class="string">&quot;&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="需求实现："><a href="#需求实现：" class="headerlink" title="需求实现："></a>需求实现：</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 通过定时器，只有长按超过500ms是才进行需要的操作</span></span><br><span class="line"><span class="comment">// 按下时触发</span></span><br><span class="line"><span class="title function_">keepPress</span>(<span class="params">event</span>)&#123;</span><br><span class="line">    <span class="keyword">let</span> nodeEl = event.<span class="property">currentTarget</span>.<span class="property">parentElement</span>.<span class="property">firstElementChild</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">pressTimer</span> = <span class="built_in">setInterval</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      nodeEl.<span class="property">style</span>.<span class="property">display</span> = <span class="string">&#x27;block&#x27;</span></span><br><span class="line">    &#125;,<span class="number">500</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 松开时触发</span></span><br><span class="line"><span class="title function_">keepPressEnd</span>(<span class="params">event</span>)&#123;</span><br><span class="line">    <span class="built_in">clearInterval</span>(<span class="variable language_">this</span>.<span class="property">pressTimer</span>)</span><br><span class="line">  &#125;,</span><br><span class="line">  </span><br><span class="line"><span class="comment">// 点击弹出层其他地方关闭弹出层</span></span><br><span class="line"><span class="variable language_">document</span>.<span class="title function_">addEventListener</span>(<span class="string">&#x27;click&#x27;</span>,<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    $(<span class="string">&#x27;.press-operation&#x27;</span>).<span class="title function_">hide</span>()</span><br><span class="line">  &#125;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="问题一："><a href="#问题一：" class="headerlink" title="问题一："></a>问题一：</h4><p><strong>在安卓中，上面的代码能实现我们的需求，但是，在IOS中，</strong>长按松开后，弹出层就立马关闭了！！！****</p>
+<p>了解了下touch和click事件：</p>
+<p><strong>touchstart:</strong></p>
+<ul>
+<li>touchstart 手指触碰开始就能触发</li>
+</ul>
+<p><strong>click:</strong></p>
+<ul>
+<li>1.手指触碰</li>
+<li>2.手指未在屏幕上移动</li>
+<li>3.在这个dom上手指离开屏幕</li>
+<li>4.触摸和离开屏幕之间的时间间隔较短</li>
+</ul>
+<p><strong>上网一顿搜索发现touch和click的执行顺序：</strong></p>
+<p><strong>touchstart  –&gt; touchmove  –&gt;  touchend –&gt; touchcancel  –&gt;  click</strong></p>
+<p>所以，执行完touch事件后会执行click事件，在ios中就会出现长按松开后就会关闭弹出层。这里我们需要阻止touch事件的默认行为使用<strong>event.preventDefault()</strong></p>
+<p>修改下<strong>keepPress</strong>中的代码</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">keepPress</span>(<span class="params">event</span>)&#123;</span><br><span class="line">    event.<span class="title function_">preventDefault</span>()  <span class="comment">// &lt;**添加了这句</span></span><br><span class="line">    <span class="keyword">let</span> nodeEl = event.<span class="property">currentTarget</span>.<span class="property">parentElement</span>.<span class="property">firstElementChild</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">pressTimer</span> = <span class="built_in">setInterval</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      nodeEl.<span class="property">style</span>.<span class="property">display</span> = <span class="string">&#x27;block&#x27;</span></span><br><span class="line">    &#125;,<span class="number">500</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>这样代码就能满足我们的需求了。</p>
+<h4 id="问题二："><a href="#问题二：" class="headerlink" title="问题二："></a>问题二：</h4><p><strong>当我们发送的消息是图片消息时，我们需要点击图片放大，长按图片也出现撤销的弹出层。通过前面的分析，</strong>当click和touch事件同时存在时会先触发touch，再触发click**** 。因为我们阻止了touch事件的默认行为，所以，我们点击图片的时候并不会触发click事件，图片也就不会放大。</p>
+<p>这里我们需要在<strong>touchend</strong>中做处理，如果长按时间短，就用代码触发图片的点击事件，长按时间长，就不触发图片的点击事件。</p>
+<p><strong>修改前面的代码：</strong><br> <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"> </span><br><span class="line"><span class="title function_">keepPress</span>(<span class="params">event</span>)&#123;</span><br><span class="line">    event.<span class="title function_">preventDefault</span>()</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">pressTime</span> = <span class="number">0</span> <span class="comment">// 清0计数器</span></span><br><span class="line">    $(<span class="string">&#x27;.press-operation&#x27;</span>).<span class="title function_">hide</span>() <span class="comment">// 每次长按会先隐藏所有的弹出层</span></span><br><span class="line">    <span class="keyword">let</span> nodeEl = event.<span class="property">currentTarget</span>.<span class="property">parentElement</span>.<span class="property">firstElementChild</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">pressTimer</span> = <span class="built_in">setInterval</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">pressTime</span> = <span class="variable language_">this</span>.<span class="property">pressTime</span> + <span class="number">1</span></span><br><span class="line">        nodeEl.<span class="property">style</span>.<span class="property">display</span> = <span class="string">&#x27;block&#x27;</span></span><br><span class="line">    &#125;,<span class="number">500</span>)</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="title function_">keepPressEnd</span>(<span class="params">event</span>)&#123;</span><br><span class="line">    <span class="keyword">let</span> el = event.<span class="property">currentTarget</span>.<span class="title function_">getElementsByClassName</span>(<span class="string">&#x27;img&#x27;</span>)[<span class="number">0</span>]</span><br><span class="line">    <span class="built_in">clearInterval</span>(<span class="variable language_">this</span>.<span class="property">pressTimer</span>)</span><br><span class="line">    <span class="keyword">if</span>(<span class="variable language_">this</span>.<span class="property">pressTime</span> &lt; <span class="number">1</span>)&#123; <span class="comment">// 长按时间不足500ms时，触发点击事件</span></span><br><span class="line">      <span class="keyword">if</span>(el)&#123;</span><br><span class="line">        el.<span class="title function_">click</span>()</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure></p>
+<p><strong>到此为止，应该是满足了我的需求了</strong></p>
+<p><strong>感谢您的阅读</strong></p>
+<p><strong>如有不对，欢迎指正。如有其他实现方法，欢迎留言讨论～</strong></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/20190409173706.html" rel="prev" title="Vue.js 获得兄弟元素，子元素，父元素（DOM操作）">
+                  <i class="fa fa-angle-left"></i> Vue.js 获得兄弟元素，子元素，父元素（DOM操作）
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/20190418211012.html" rel="next" title="electron-vue构建桌面客户端使用electron-updater实现在线更新">
+                  electron-vue构建桌面客户端使用electron-updater实现在线更新 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">渝ICP备17014610号 </a>
+      <img src="/images/beian.png" alt=""><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=50011702500392" rel="noopener" target="_blank">渝公网安备50011702500392号 </a>
+  </div>
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">重庆崽儿Brand</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/favicon.ico" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha256-CTSx/A06dm1B063156EVh15m6Y67pAjZZaQc89LLSrU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"brandhuang.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.18.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="整理前端需要掌握的一些网络相关的基础知识和面试题。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端基础整理 | 网络相关（一）">
+<meta property="og:url" content="http://brandhuang.com/20200321190522.html">
+<meta property="og:site_name" content="重庆崽儿Brand博客">
+<meta property="og:description" content="整理前端需要掌握的一些网络相关的基础知识和面试题。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://static.brandhuang.com/tcp-ip%20transfer.png">
+<meta property="og:image" content="http://static.brandhuang.com/tcp-ip%20transfer%20detail.png">
+<meta property="article:published_time" content="2020-03-21T11:05:22.000Z">
+<meta property="article:modified_time" content="2024-03-04T07:47:58.623Z">
+<meta property="article:author" content="重庆崽儿Brand">
+<meta property="article:tag" content="重庆崽儿brand，vue，nuxt，blog，首页，JavaScript，js，css，html，web前端，前端开发，个人博客">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://static.brandhuang.com/tcp-ip%20transfer.png">
+
+
+<link rel="canonical" href="http://brandhuang.com/20200321190522.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://brandhuang.com/20200321190522.html","path":"20200321190522.html","title":"前端基础整理 | 网络相关（一）"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>前端基础整理 | 网络相关（一） | 重庆崽儿Brand博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">重庆崽儿Brand博客</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP"><span class="nav-number">1.</span> <span class="nav-text">HTTP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP-IP%E5%8D%8F%E8%AE%AE%E6%97%8F%E6%A6%82%E8%A6%81"><span class="nav-number">2.</span> <span class="nav-text">TCP&#x2F;IP协议族概要</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#TCP-IP-%E7%9A%84%E5%88%86%E5%B1%82%E7%AE%A1%E7%90%86"><span class="nav-number">2.0.1.</span> <span class="nav-text">TCP&#x2F;IP 的分层管理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TCP-IP-%E9%80%9A%E4%BF%A1%E4%BC%A0%E8%BE%93"><span class="nav-number">2.0.2.</span> <span class="nav-text">TCP&#x2F;IP 通信传输</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cookie-%E5%92%8C-Session"><span class="nav-number">3.</span> <span class="nav-text">Cookie 和 Session</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Cookie%EF%BC%9A"><span class="nav-number">3.0.1.</span> <span class="nav-text">Cookie：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE-cookie"><span class="nav-number">3.0.1.1.</span> <span class="nav-text">设置 cookie:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BC%9A%E8%AF%9D%E6%9C%9F-Cookie"><span class="nav-number">3.0.1.2.</span> <span class="nav-text">会话期 Cookie:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8C%81%E4%B9%85%E6%80%A7-Cookie"><span class="nav-number">3.0.1.3.</span> <span class="nav-text">持久性 Cookie:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Cookie-%E7%9A%84-Secure-%E5%92%8C-HttpOnly-%E6%A0%87%E8%AE%B0"><span class="nav-number">3.0.1.4.</span> <span class="nav-text">Cookie 的 Secure 和 HttpOnly 标记</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Cookie-%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="nav-number">3.0.1.5.</span> <span class="nav-text">Cookie 的作用域</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SameSite-Cookies"><span class="nav-number">3.0.1.6.</span> <span class="nav-text">SameSite Cookies</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#session"><span class="nav-number">3.0.2.</span> <span class="nav-text">session</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#cookie-%E4%B8%8E-session-%E7%9A%84%E5%8C%BA%E5%88%AB%E3%80%82"><span class="nav-number">3.0.2.1.</span> <span class="nav-text">cookie 与 session 的区别。</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%EF%BC%88%E9%9D%A2%E8%AF%95%E9%A2%98%E7%9B%AE%EF%BC%89%E5%9C%A8%E5%9C%B0%E5%9D%80%E6%A0%8F%E9%94%AE%E5%85%A5-URL-%E5%90%8E%EF%BC%8C%E7%BD%91%E7%BB%9C%E4%B8%96%E7%95%8C%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">4.</span> <span class="nav-text">（面试题目）在地址栏键入 URL 后，网络世界发生了什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%EF%BC%88%E9%9D%A2%E8%AF%95%E9%A2%98%E7%9B%AE%EF%BC%89-Post-%E5%92%8C-Get-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">5.</span> <span class="nav-text">（面试题目） Post 和 Get 的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AB%98%E5%BE%B7%E4%B8%80%E9%9D%A2-%E4%B8%80%E4%B8%AA-tcp-%E8%BF%9E%E6%8E%A5%E8%83%BD%E5%8F%91%E5%87%A0%E4%B8%AA-http-%E8%AF%B7%E6%B1%82%EF%BC%9F"><span class="nav-number">6.</span> <span class="nav-text">[高德一面]一个 tcp 连接能发几个 http 请求？</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="重庆崽儿Brand"
+      src="/images/author.jpg">
+  <p class="site-author-name" itemprop="name">重庆崽儿Brand</p>
+  <div class="site-description" itemprop="description">重庆崽儿brand的个人博客，重庆崽儿brand的生活记录，重庆崽儿brand的前端学习</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">61</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://brandhuang.com/20200321190522.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/author.jpg">
+      <meta itemprop="name" content="重庆崽儿Brand">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="重庆崽儿Brand博客">
+      <meta itemprop="description" content="重庆崽儿brand的个人博客，重庆崽儿brand的生活记录，重庆崽儿brand的前端学习">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="前端基础整理 | 网络相关（一） | 重庆崽儿Brand博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          前端基础整理 | 网络相关（一）
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-03-21 19:05:22" itemprop="dateCreated datePublished" datetime="2020-03-21T19:05:22+08:00">2020-03-21</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>整理前端需要掌握的一些网络相关的基础知识和面试题。</p>
+<span id="more"></span>
+
+<blockquote>
+<p>本文的题目整理自大佬文章，语句自己稍作处理，其他内容来自网络和《图解 HTTP》一书，都是网络相关的。</p>
+</blockquote>
+<h2 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h2><blockquote>
+<p>HyperText Transfer Protocol，超文本传输协议。<code>TCP/IP</code> 协议族的一个子集。用于客户端与服务器间的通信。是一种 <code>无状态协议</code>。为了实现保持状态的功能，引入了 <code>Cookie</code> 技术。目前主流版本 <code>HTTP 1.0（广泛使用在服务器端）</code> 和 <code>HTTP 1.1（当前最新版）</code>。</p>
+</blockquote>
+<h2 id="TCP-IP协议族概要"><a href="#TCP-IP协议族概要" class="headerlink" title="TCP&#x2F;IP协议族概要"></a>TCP&#x2F;IP协议族概要</h2><blockquote>
+<p>计算机和网络设备需要相互通信，双方必须基于相同的方法。比如，如何探测到通信设备、由哪一方现发起通信、使用哪种语言通信、怎样结束通信等都需要事先确定规则，我们把这种规则称之为<code>协议(protocol)</code>。</p>
+</blockquote>
+<p><code>TCP/IP</code> 协议是互联网相关连的协议的集合的总称，包括 <code>TCP、IP、UDP、HTTP、DNS、FTP...</code>等等</p>
+<p><strong>TCP&#x2F;IP 协议的其他两种说法：</strong></p>
+<ol>
+<li>指 <code>IP</code> 和 <code>TCP</code> 两种协议；</li>
+<li>在 <code>IP</code> 协议在通信过程中，使用到的协议族的统称。</li>
+</ol>
+<h4 id="TCP-IP-的分层管理"><a href="#TCP-IP-的分层管理" class="headerlink" title="TCP&#x2F;IP 的分层管理"></a>TCP&#x2F;IP 的分层管理</h4><blockquote>
+<p><code>TCP/IP</code> 协议族中最重要的一点就是分层。</p>
+</blockquote>
+<p><code>TCP/IP</code> 协议族分为 4 层：</p>
+<ol>
+<li>应用层</li>
+<li>传输层</li>
+<li>网络层</li>
+<li>数据链路层</li>
+</ol>
+<p>分层后的好处：如果互联网只由一个协议统筹，某个地方需要改变设计时，就需要把所有的部分整体替换掉。<code>分层之后，只需要把变动的层替换掉即可。把各层之间的接口设计后后，各层内部就能自由改动了。</code></p>
+<p><strong>1、应用层</strong></p>
+<p>应用层决定了向用户提供应用服务时通信的活动。</p>
+<p><code>TCP/IP</code> 协议族内置了各类通用的应用服务。如 <code>FTP(File Transfer Protocol，文件传输协议)</code> 和 <code>DNS(Domain Name System，域名系统)</code>。 <code>HTTP 协议也属于应用层</code>。</p>
+<p><strong>2、传输层</strong></p>
+<p>为「应用层」提供处于网络连接中的两台计算机之间的数据传输。</p>
+<p>该层的有两个性质不同的协议：<code>TCP（Transmission Control Protocol，传输控制协议）</code> 和 <code>UDP（User Data Protocol，用户数据报协议）</code>。</p>
+<p><strong>3、网络层（又网络互联层）</strong></p>
+<p>该层用来<code>处理在网络上流动的数据包</code>。数据包是网络传输的最小单位。</p>
+<p>该层规定了通过怎样的路径（即<code>传输路线</code>）到达对方计算机，并把数据包传输给对方。与对方计算机之间通过多台计算机或者网络设备进行传输时，<code>网络层的作用就是在众多选项内选择一条传输路线。</code></p>
+<p><strong>4、链路层</strong></p>
+<blockquote>
+<p>又名数据链路层，网络接口层</p>
+</blockquote>
+<p>用来处理<code>连接网络的硬件部分</code>。包括控制操作系统、硬件设备的驱动、<code>NIC（网络适配器）</code>及光纤等物理可见部分（还包括连接器等一切传输媒介）。</p>
+<h4 id="TCP-IP-通信传输"><a href="#TCP-IP-通信传输" class="headerlink" title="TCP&#x2F;IP 通信传输"></a>TCP&#x2F;IP 通信传输</h4><blockquote>
+<p>发送端从应用层往下走，接收端从应用层往上走。</p>
+</blockquote>
+<p><img src="http://static.brandhuang.com/tcp-ip%20transfer.png" alt="http://static.brandhuang.com/tcp-ip%20transfer.png"></p>
+<p><img src="http://static.brandhuang.com/tcp-ip%20transfer%20detail.png" alt="http://static.brandhuang.com/tcp-ip%20transfer%20detail.png"></p>
+<h2 id="Cookie-和-Session"><a href="#Cookie-和-Session" class="headerlink" title="Cookie 和 Session"></a>Cookie 和 Session</h2><h4 id="Cookie："><a href="#Cookie：" class="headerlink" title="Cookie："></a>Cookie：</h4><blockquote>
+<p>服务器发送到用户浏览器，并<code>存储在本地</code>的一段一般不超过 4KB 的小型文本数据。</p>
+</blockquote>
+<p>服务器指定 cookie 后，浏览器每次请求都会携带 cookie。</p>
+<p>Cookie主要用于以下三个方面：</p>
+<ul>
+<li>会话状态管理（如用户登录状态、购物车、游戏分数或其它需要记录的信息）</li>
+<li>个性化设置（如用户自定义设置、主题等）</li>
+<li>浏览器行为跟踪（如跟踪分析用户行为等）</li>
+</ul>
+<h5 id="设置-cookie"><a href="#设置-cookie" class="headerlink" title="设置 cookie:"></a>设置 <code>cookie</code>:</h5><ol>
+<li>客户端发送 <code>HTTP</code> 请求到服务器</li>
+<li>当服务器收到 <code>HTTP</code> 请求时，在响应头里面添加一个 <code>Set-Cookie</code> 字段</li>
+<li>浏览器收到响应后保存下 <code>Cookie</code></li>
+<li>之后每一次请求中都通过 <code>Cookie</code> 字段将 <code>Cookie</code> 信息发送给服务器。</li>
+</ol>
+<h5 id="会话期-Cookie"><a href="#会话期-Cookie" class="headerlink" title="会话期 Cookie:"></a>会话期 <code>Cookie</code>:</h5><p>浏览器关闭之后它会被自动删除,不需要指定过期时间（<code>Expires</code>）或者有效期（<code>Max-Age</code>）</p>
+<p><strong>注意：有的浏览器提供了会话恢复功能，即使关闭了浏览器，会话期 <code>cookie</code> 依然会被保存下来，就像没关闭浏览器一样</strong></p>
+<h5 id="持久性-Cookie"><a href="#持久性-Cookie" class="headerlink" title="持久性 Cookie:"></a>持久性 <code>Cookie</code>:</h5><p>持久性<code>Cookie</code>可以指定一个特定的过期时间<code>（Expires）</code>或有效期<code>（Max-Age）</code>。</p>
+<h5 id="Cookie-的-Secure-和-HttpOnly-标记"><a href="#Cookie-的-Secure-和-HttpOnly-标记" class="headerlink" title="Cookie 的 Secure 和 HttpOnly 标记"></a>Cookie 的 <code>Secure</code> 和 <code>HttpOnly</code> 标记</h5><p>标记为 Secure 的Cookie只应通过被HTTPS协议加密过的请求发送给服务端。</p>
+<p>为避免跨域脚本 (XSS) 攻击，通过 JavaScript 的 <code>Document.cookie</code> API<code>无法访问</code>带有 <code>HttpOnly</code> 标记的Cookie，</p>
+<h5 id="Cookie-的作用域"><a href="#Cookie-的作用域" class="headerlink" title="Cookie 的作用域"></a>Cookie 的作用域</h5><p><code>Domain</code> 和 <code>Path</code> 标识定义了Cookie的作用域.</p>
+<p><code>Domain</code> 标识指定了哪些主机可以接受Cookie。如果不指定，默认为当前文档的主机（<code>不包含子域名</code>）。如果指定了Domain，则一般包含子域名。</p>
+<p>例如：设置 <code>Domain = brandhuang.com</code>，则 cookie 也包含子啊子域名中，如 <code>api.brandhuang.com</code>、<code>static.brandhuang.com</code>等</p>
+<p><code>Path</code> 标识指定了主机下的哪些路径可以接受Cookie</p>
+<p>例如，设置 Path&#x3D;&#x2F;docs，则以下地址都会匹配：</p>
+<ul>
+<li>&#x2F;docs</li>
+<li>&#x2F;docs&#x2F;Web&#x2F;</li>
+<li>&#x2F;docs&#x2F;Web&#x2F;HTTP</li>
+</ul>
+<h5 id="SameSite-Cookies"><a href="#SameSite-Cookies" class="headerlink" title="SameSite Cookies"></a>SameSite Cookies</h5><p><code>SameSite Cookie</code>允许服务器要求某个cookie在跨站请求时不会被发送，从而可以阻止跨站请求伪造攻击（CSRF）</p>
+<p>SameSite 可以有下面三种值：</p>
+<ul>
+<li>Strict 仅允许一方请求携带 Cookie，即浏览器将只发送相同站点请求的 Cookie，即当前网页 URL 与请求目标 URL 完全一致。</li>
+<li>Lax 允许部分第三方请求携带 Cookie</li>
+<li>None 无论是否跨站都会发送 Cookie</li>
+</ul>
+<p><strong>之前默认是 None 的，Chrome80 后默认是 Lax。</strong></p>
+<p>好文推荐：<a target="_blank" rel="noopener" href="https://juejin.im/post/5e718ecc6fb9a07cda098c2d">https://juejin.im/post/5e718ecc6fb9a07cda098c2d</a></p>
+<h4 id="session"><a href="#session" class="headerlink" title="session"></a>session</h4><p>session 是<code>一种维持客户端与服务器端会话的机制</code>。</p>
+<p>但是与 cookie 把会话信息保存在客户端本地不一样，<code>session 把会话保留在服务端</code>。</p>
+<p>许多 web应用中，session 机制就是通过 cookie 来实现的。当然还可以用其他方式来实现。</p>
+<h5 id="cookie-与-session-的区别。"><a href="#cookie-与-session-的区别。" class="headerlink" title="cookie 与 session 的区别。"></a>cookie 与 session 的区别。</h5><ol>
+<li>cookie 是浏览器提供的一种缓存机制，它可以用于维持客户端与服务端之间的会话</li>
+<li>session 指的是维持客户端与服务端会话的一种机制，它可以通过 cookie 实现，也可以通过别的手段实现。</li>
+<li>如果用 cookie 实现会话，那么会话会保存在客户端浏览器中</li>
+<li>session 机制提供的会话是保存在服务端的</li>
+</ol>
+<h2 id="（面试题目）在地址栏键入-URL-后，网络世界发生了什么？"><a href="#（面试题目）在地址栏键入-URL-后，网络世界发生了什么？" class="headerlink" title="（面试题目）在地址栏键入 URL 后，网络世界发生了什么？"></a>（面试题目）在地址栏键入 URL 后，网络世界发生了什么？</h2><blockquote>
+<p>关键词：<code>访问 DNS 服务器</code>、<code>获取 IP 地址</code>、<code>三次握手建立 TCP 连接</code>、<code>本机发送 HTTP 请求</code>、<code>服务器响应并返回数据</code>、<code>浏览器渲染显示</code></p>
+</blockquote>
+<p>首先我们要<code>访问 DNS 服务器</code>获得网站对应的 IP 地址</p>
+<p><code>拿到网站的 IP 地址</code>后就可以与该网站的服务器<code>建立 TCP 连接</code>（需要进行<code>三次握手</code>）</p>
+<p>三次握手建立连接后，本机就可以向服务器<code>发送 HTTP 请求</code></p>
+<p>服务器接受到了请求会<code>做出相应的响应</code>，把请求的数据发送给本机浏览器，最终<code>浏览器</code>把服务器响应的数据<code>渲染显示</code>出来</p>
+<h2 id="（面试题目）-Post-和-Get-的区别"><a href="#（面试题目）-Post-和-Get-的区别" class="headerlink" title="（面试题目） Post 和 Get 的区别"></a>（面试题目） Post 和 Get 的区别</h2><ul>
+<li>Get 请求能缓存，Post 不能</li>
+<li>Post 相对 Get 安全一点点，因为Get 请求都包含在 URL 里，且会被浏览器保存历史纪录，Post 不会，但是在抓包的情况下都是一样的。</li>
+<li>Post 可以通过 request body来传输比 Get 更多的数据，Get 没有这个技术</li>
+<li>URL有长度限制，会影响 Get 请求，但是这个长度限制是浏览器规定的，不是 <a target="_blank" rel="noopener" href="https://tools.ietf.org/rfc/index">RFC</a> 规定的</li>
+<li>Post 支持更多的编码类型且不对数据类型限制</li>
+</ul>
+<p>其他方面参考：</p>
+<p><a target="_blank" rel="noopener" href="https://juejin.im/post/5ddff9565188256eaf01dee4#heading-2">https://juejin.im/post/5ddff9565188256eaf01dee4#heading-2</a></p>
+<p><a target="_blank" rel="noopener" href="https://juejin.im/post/5872309261ff4b005c4580d4#heading-4">https://juejin.im/post/5872309261ff4b005c4580d4#heading-4</a></p>
+<h2 id="高德一面-一个-tcp-连接能发几个-http-请求？"><a href="#高德一面-一个-tcp-连接能发几个-http-请求？" class="headerlink" title="[高德一面]一个 tcp 连接能发几个 http 请求？"></a>[高德一面]一个 tcp 连接能发几个 http 请求？</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://juejin.im/post/5e7426d15188254967069c00#heading-1">大佬原文地址戳我&gt;&gt;</a></p>
+</blockquote>
+<p>如果是 <code>HTTP 1.0</code> 版本协议，一般情况下，<code>不支持长连接，因此在每次请求发送完毕之后，TCP 连接即会断开，因此一个 TCP 发送一个 HTTP 请求。</code></p>
+<p>但是有一种情况可以将一条 TCP 连接保持在活跃状态，那就是通过 Connection 和 Keep-Alive 首部，在请求头带上 Connection: Keep-Alive，并且可以通过 Keep-Alive 通用首部中指定的，用逗号分隔的选项调节 keep-alive 的行为，如果客户端和服务端都支持，那么其实也可以发送多条，不过此方式也有限制，可以关注《HTTP 权威指南》4.5.5 节对于 Keep-Alive 连接的限制和规则。</p>
+<p><code>HTTP 1.1</code> 版本协议，<code>默认连接都是长连接（想断开则指定 Connection 为 close）</code>，因此只要 TCP 连接不断开，便可以一直发送 HTTP 请求，持续不断，没有上限；<br>同样，如果是 HTTP 2.0 版本协议，支持多用复用，一个 TCP 连接是可以并发多个 HTTP 请求的，同样也是支持长连接，因此只要不断开 TCP 的连接，HTTP 请求数也是可以没有上限地持续发送。</p>
+<p><strong>本文先整理这么多吧，反正一次也消化不完。</strong></p>
+<p>如果喜欢本文希望能点个赞～</p>
+<p>当然可以关注我来获取后续文章</p>
+<p>也可以关注我<a target="_blank" rel="noopener" href="http://www.brandhuang.com/">个人博客</a></p>
+<p>还也可以关注我公众号「九零后重庆崽儿」。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/20200321145701.html" rel="prev" title="周末愉快 | 今日份食谱已上线">
+                  <i class="fa fa-angle-left"></i> 周末愉快 | 今日份食谱已上线
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/20200325202547.html" rel="next" title="前端基础整理 | 网络相关（二）">
+                  前端基础整理 | 网络相关（二） <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">渝ICP备17014610号 </a>
+      <img src="/images/beian.png" alt=""><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=50011702500392" rel="noopener" target="_blank">渝公网安备50011702500392号 </a>
+  </div>
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">重庆崽儿Brand</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>
