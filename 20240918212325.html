@@ -20,28 +20,28 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"brandhuang.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.18.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="你知道js中函数传值方式是怎样的吗？是不是听说过函数都是按值传递的？why？">
+    <meta name="description" content="用 uniapp 开发微信小程序，使用微信原生组件 wxml-to-canvas 将页面生成图片">
 <meta property="og:type" content="article">
-<meta property="og:title" content="前端基础 | Javascript函数传值的方式">
-<meta property="og:url" content="http://brandhuang.com/20200426080032.html">
+<meta property="og:title" content="在uniapp中使用 wxml-to-canvas">
+<meta property="og:url" content="http://brandhuang.com/20240918212325.html">
 <meta property="og:site_name" content="重庆崽儿Brand博客">
-<meta property="og:description" content="你知道js中函数传值方式是怎样的吗？是不是听说过函数都是按值传递的？why？">
+<meta property="og:description" content="用 uniapp 开发微信小程序，使用微信原生组件 wxml-to-canvas 将页面生成图片">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-04-26T00:00:32.000Z">
-<meta property="article:modified_time" content="2024-03-04T08:15:30.794Z">
+<meta property="article:published_time" content="2024-09-18T13:23:25.000Z">
+<meta property="article:modified_time" content="2024-09-19T02:31:28.648Z">
 <meta property="article:author" content="重庆崽儿Brand">
 <meta property="article:tag" content="重庆崽儿brand,vue,React,nuxt,blog,首页,JavaScript,js,css,html,web前端,前端开发,个人博客">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://brandhuang.com/20200426080032.html">
+<link rel="canonical" href="http://brandhuang.com/20240918212325.html">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://brandhuang.com/20200426080032.html","path":"20200426080032.html","title":"前端基础 | Javascript函数传值的方式"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://brandhuang.com/20240918212325.html","path":"20240918212325.html","title":"在uniapp中使用 wxml-to-canvas"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>前端基础 | Javascript函数传值的方式 | 重庆崽儿Brand博客</title>
+<title>在uniapp中使用 wxml-to-canvas | 重庆崽儿Brand博客</title>
   
 
 
@@ -106,7 +106,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E4%BC%A0%E5%80%BC"><span class="nav-number">1.</span> <span class="nav-text">函数传值</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%89%E5%80%BC%E4%BC%A0%E9%80%92"><span class="nav-number">1.1.</span> <span class="nav-text">按值传递</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.2.</span> <span class="nav-text">基本数据类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%8D%E6%9D%82%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.3.</span> <span class="nav-text">复杂数据类型</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0"><span class="nav-number">2.</span> <span class="nav-text">参考文章</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E6%AD%A5-npm-%E5%AE%89%E8%A3%85-wxml-to-canvas"><span class="nav-number">1.</span> <span class="nav-text">第一步 npm 安装 wxml-to-canvas</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5-%E5%9C%A8%E9%A1%B9%E7%9B%AE%E6%A0%B9%E7%9B%AE%E5%BD%95%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9-wxcomponents"><span class="nav-number">2.</span> <span class="nav-text">第二步 在项目根目录新建文件夹 wxcomponents</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E6%AD%A5-%E6%9F%A5%E7%9C%8B-node-modules-%E6%96%87%E4%BB%B6%E5%A4%B9"><span class="nav-number">3.</span> <span class="nav-text">第三步 查看 node_modules 文件夹</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E6%AD%A5-%E4%BF%AE%E6%94%B9-wxcomponents-wxml-to-canvas-index-js-%E4%B8%AD%E7%9A%84%E5%A6%82%E4%B8%8B%E5%86%85%E5%AE%B9"><span class="nav-number">4.</span> <span class="nav-text">第四步 修改 &#x2F;wxcomponents&#x2F;wxml-to-canvas&#x2F;index.js 中的如下内容</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%94%E6%AD%A5-%E9%85%8D%E7%BD%AE-pages-json"><span class="nav-number">5.</span> <span class="nav-text">第五步 配置 pages.json </span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-%E8%AF%B7%E7%9C%8B%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3%E4%B8%AD%E7%9A%84%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5"><span class="nav-number">6.</span> <span class="nav-text">使用 请看官方文档中的代码片段</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -157,7 +157,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://brandhuang.com/20200426080032.html">
+    <link itemprop="mainEntityOfPage" href="http://brandhuang.com/20240918212325.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/author.jpg">
@@ -170,12 +170,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="前端基础 | Javascript函数传值的方式 | 重庆崽儿Brand博客">
+      <meta itemprop="name" content="在uniapp中使用 wxml-to-canvas | 重庆崽儿Brand博客">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          前端基础 | Javascript函数传值的方式
+          在uniapp中使用 wxml-to-canvas
         </h1>
 
         <div class="post-meta-container">
@@ -186,7 +186,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2020-04-26 08:00:32" itemprop="dateCreated datePublished" datetime="2020-04-26T08:00:32+08:00">2020-04-26</time>
+      <time title="创建时间：2024-09-18 21:23:25" itemprop="dateCreated datePublished" datetime="2024-09-18T21:23:25+08:00">2024-09-18</time>
     </span>
 
   
@@ -205,31 +205,32 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><p>你知道js中函数传值方式是怎样的吗？是不是听说过函数都是按值传递的？why？</p>
+    <div class="post-body" itemprop="articleBody"><p>用 uniapp 开发微信小程序，使用微信原生组件 wxml-to-canvas 将页面生成图片</p>
 <span id="more"></span>
 
-
-<h1 id="函数传值"><a href="#函数传值" class="headerlink" title="函数传值"></a>函数传值</h1><blockquote>
-<p>《JavaScript高级程序设计》书中说：<code>ECMAScript中所有函数的参数都是按值传递的。</code></p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/miniprogram/dev/platform-capabilities/extended/component-plus/wxml-to-canvas.html">wxml-to-canvas 微信官方文档</a></p>
 </blockquote>
-<h2 id="按值传递"><a href="#按值传递" class="headerlink" title="按值传递"></a>按值传递</h2><blockquote>
-<p>把函数外部的值复制给函数内部的参数，就和把值从一个变量复制到另一个变量一样。</p>
-</blockquote>
-<h2 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h2><blockquote>
-<p>传递的是原始值本身</p>
-</blockquote>
-<p>在函数中修改传入的值，不会影响原来的数据</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> value = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">foo</span>(<span class="params">v</span>) &#123;</span><br><span class="line">    v = <span class="number">2</span>;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(v); <span class="comment">//2</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">foo</span>(value);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(value) <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+<h3 id="第一步-npm-安装-wxml-to-canvas"><a href="#第一步-npm-安装-wxml-to-canvas" class="headerlink" title="第一步 npm 安装 wxml-to-canvas"></a>第一步 <code>npm</code> 安装 <code>wxml-to-canvas</code></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save wxml-to-canvas</span><br></pre></td></tr></table></figure>
 
-<h2 id="复杂数据类型"><a href="#复杂数据类型" class="headerlink" title="复杂数据类型"></a>复杂数据类型</h2><p><strong>传递的是对象的引用的副本</strong>，看下面两个例子，看看有什么不一样？</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 例子1</span></span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    <span class="attr">value</span>: <span class="number">1</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">foo</span>(<span class="params">o</span>) &#123;</span><br><span class="line">    o.<span class="property">value</span> = <span class="number">2</span>;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(o.<span class="property">value</span>); <span class="comment">//2</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">foo</span>(obj);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(obj.<span class="property">value</span>) <span class="comment">// 2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 例子2</span></span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    <span class="attr">value</span>: <span class="number">1</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">foo</span>(<span class="params">o</span>) &#123;</span><br><span class="line">    o = <span class="number">2</span>;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(o); <span class="comment">//2</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">foo</span>(obj);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(obj.<span class="property">value</span>) <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
-
-<p><strong>解释：</strong></p>
-<p>对于复杂的数据类型，函数内部的临时变量和传入的参数<code>指向同一个内存地址</code>，所以有<code>例子一</code>，我们能通过 <code>o.value</code> 找到内存中的 <code>o</code>，也就找到了外部的 <code>obj</code>，所以我们修改 <code>o.value</code> 值的时候，也会影响 <code>obj</code> 中的 <code>value</code> 值。</p>
-<p>对于<code>例子二</code>，因为是<code>直接对传入的参数进行了赋值操作</code>，这会将内部参数 <code>o</code> 进行<code>重新绑定</code>，指向了一个新的地址，所以此时<code>修改函数内部的值不会对外部有影响</code>。</p>
-<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a target="_blank" rel="noopener" href="https://segmentfault.com/q/1010000003023316">https://segmentfault.com/q/1010000003023316</a></p>
-<p><strong>感谢你的阅读</strong></p>
-<p><strong>先就记录这几个知识点吧，多了一次性也记不住，大概率你也不会来看第二遍</strong></p>
+<h3 id="第二步-在项目根目录新建文件夹-wxcomponents"><a href="#第二步-在项目根目录新建文件夹-wxcomponents" class="headerlink" title="第二步 在项目根目录新建文件夹 wxcomponents"></a>第二步 在项目根目录新建文件夹 <code>wxcomponents</code></h3><blockquote>
+<p>这是 uniapp 要求的，请看这里：<a target="_blank" rel="noopener" href="https://zh.uniapp.dcloud.io/tutorial/miniprogram-subject.html">小程序自定义组件支持</a></p>
+</blockquote>
+<p>在该文件夹中新建两个文件夹：</p>
+<ul>
+<li>wxml-to-canvas</li>
+<li>widget-ui</li>
+</ul>
+<h3 id="第三步-查看-node-modules-文件夹"><a href="#第三步-查看-node-modules-文件夹" class="headerlink" title="第三步 查看 node_modules 文件夹"></a>第三步 查看 <code>node_modules</code> 文件夹</h3><p> 找到 <code>wxml-to-canvas</code> 和 <code>widget-ui</code> 文件夹</p>
+<p> 复制 <code>wxml-to-canvas</code> &gt; <code>miniprogram_dist</code> 中的文件到 <code>wxcomponents</code> &gt; <code>wxml-to-canvas</code> 中</p>
+<p> 复制 <code>widget-ui</code> &gt; <code>dist</code> 中的文件到 <code>wxcomponents</code> &gt; <code>widget-ui</code> 中</p>
+<h3 id="第四步-修改-wxcomponents-wxml-to-canvas-index-js-中的如下内容"><a href="#第四步-修改-wxcomponents-wxml-to-canvas-index-js-中的如下内容" class="headerlink" title="第四步 修改 /wxcomponents/wxml-to-canvas/index.js 中的如下内容"></a>第四步 修改 <code>/wxcomponents/wxml-to-canvas/index.js</code> 中的如下内容</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = <span class="built_in">require</span>(<span class="string">&quot;widget-ui&quot;</span>);</span><br><span class="line"><span class="comment">//改为</span></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = <span class="built_in">require</span>(<span class="string">&quot;../widget-ui/index.js&quot;</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="第五步-配置-pages-json"><a href="#第五步-配置-pages-json" class="headerlink" title="第五步 配置 pages.json "></a>第五步 配置 <code>pages.json </code></h3><p>在需要用的页面 或者 全局配置 <code>usingComponents</code>：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;pages&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;path&quot;</span><span class="punctuation">:</span> <span class="string">&quot;pages/xxx&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;style&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;usingComponents&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">            　　<span class="attr">&quot;wxml-to-canvas&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/wxcomponents/wxml-to-canvas/index&quot;</span></span><br><span class="line">            <span class="punctuation">&#125;</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line"><span class="punctuation">]</span></span><br></pre></td></tr></table></figure>
+<h3 id="使用-请看官方文档中的代码片段"><a href="#使用-请看官方文档中的代码片段" class="headerlink" title="使用 请看官方文档中的代码片段"></a>使用 请看官方文档中的代码片段</h3><blockquote>
+<p><a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/miniprogram/dev/platform-capabilities/extended/component-plus/wxml-to-canvas.html">wxml-to-canvas 微信官方文档</a></p>
+</blockquote>
+<p>亲测有效，可扫码博客最底部的小程序二维码 「随机算数」 模块体验。</p>
 
     </div>
 
@@ -243,14 +244,11 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/20200422232721.html" rel="prev" title="前端基础 | 结合规范了解this">
-                  <i class="fa fa-angle-left"></i> 前端基础 | 结合规范了解this
+                <a href="/20240907171012.html" rel="prev" title="大文件分片上传">
+                  <i class="fa fa-angle-left"></i> 大文件分片上传
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/20200626164030.html" rel="next" title="前端工程师首先是软件工程师">
-                  前端工程师首先是软件工程师 <i class="fa fa-angle-right"></i>
-                </a>
             </div>
           </div>
     </footer>
