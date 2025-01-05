@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/favicon.ico" color="#222">
+  <meta name="google-adsense-account" content="ca-pub-3799223021946643">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha256-CTSx/A06dm1B063156EVh15m6Y67pAjZZaQc89LLSrU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.brandhuang.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.18.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Javascript版数据结构与算法学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Javascript版数据结构与算法——二叉树">
+<meta property="og:url" content="https://blog.brandhuang.com/article/1564967352592">
+<meta property="og:site_name" content="重庆崽儿Brand博客">
+<meta property="og:description" content="Javascript版数据结构与算法学习">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-08-05T01:09:11.000Z">
+<meta property="article:modified_time" content="2025-01-05T06:47:40.601Z">
+<meta property="article:author" content="重庆崽儿Brand">
+<meta property="article:tag" content="重庆崽儿brand,vue,React,nuxt,blog,首页,JavaScript,js,css,html,web前端,前端开发,个人博客">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://blog.brandhuang.com/article/1564967352592.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.brandhuang.com/article/1564967352592","path":"/article/1564967352592.html","title":"Javascript版数据结构与算法——二叉树"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Javascript版数据结构与算法——二叉树 | 重庆崽儿Brand博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">重庆崽儿Brand博客</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E6%A0%91"><span class="nav-number">1.</span> <span class="nav-text">1、树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="nav-number">2.</span> <span class="nav-text">2、二叉树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81js%E6%9E%84%E5%BB%BA%E4%BB%A5%E4%B8%80%E9%A2%97%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="nav-number">3.</span> <span class="nav-text">3、js构建以一颗二叉树</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E4%BA%8C%E5%8F%89%E6%A0%91%E5%AF%B9%E8%B1%A1"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 创建一个二叉树对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E6%9E%84%E5%BB%BA%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%87%BD%E6%95%B0"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 创建一个构建二叉树的函数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AA%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="nav-number">4.</span> <span class="nav-text">3.3 构建一个二叉树</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="重庆崽儿Brand"
+      src="/images/author.jpg">
+  <p class="site-author-name" itemprop="name">重庆崽儿Brand</p>
+  <div class="site-description" itemprop="description">重庆崽儿brand的个人博客</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">67</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/CQBoyBrand" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;CQBoyBrand" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:brandhuang@qq.com" title="E-Mail → mailto:brandhuang@qq.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+<div style="display: flex;justify-content: center;">
+  <div>
+    <div>
+      <img src="/images/mini-qrcode.png" width="120px" height="120px" alt="工具人助手小程序">
+    </div>
+    <div style="font-size: 12px">工具人助手小程序</div>
+  </div>
+</div>
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.brandhuang.com/article/1564967352592">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/author.jpg">
+      <meta itemprop="name" content="重庆崽儿Brand">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="重庆崽儿Brand博客">
+      <meta itemprop="description" content="重庆崽儿brand的个人博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Javascript版数据结构与算法——二叉树 | 重庆崽儿Brand博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Javascript版数据结构与算法——二叉树
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-08-05 09:09:11" itemprop="dateCreated datePublished" datetime="2019-08-05T09:09:11+08:00">2019-08-05</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>Javascript版数据结构与算法学习</p>
+<span id="more"></span>
+
+<h3 id="1、树"><a href="#1、树" class="headerlink" title="1、树"></a>1、树</h3><p>一棵树最上面的节点：根结点</p>
+<p>一个节点下面连接多个节点，那个这个节点称「<strong>为父节点</strong>」，它下面的节点称为「<strong>子节点</strong>」，没有任何子节点的节点称为「<strong>叶子节点</strong>」。</p>
+<p>一个节点可以有多个子节点</p>
+<h3 id="2、二叉树"><a href="#2、二叉树" class="headerlink" title="2、二叉树"></a>2、二叉树</h3><p>二叉树是一种特殊的树，子节点数不超过「2个」。</p>
+<p>以某种特定的顺序访问树中所有的节点称为<strong>树的遍历</strong></p>
+<p>二叉树的遍历分为：</p>
+<ul>
+<li><strong>前序遍历</strong>：先访问父节点本身，再访问左子节点，最后访问右子节点</li>
+<li><strong>中序遍历</strong>：先访问左子节点，再访问父节点本身，最后访问右子节点（输出结果是升序的）</li>
+<li><strong>后序遍历</strong>：先访问左子节点，再访问右子节点，最后访问父节点本身</li>
+</ul>
+<p>树的层数称为「<strong>树的深度</strong>」</p>
+<p>一个父节点的两个子节点分别称为「<strong>左节点</strong>」和「<strong>右节点</strong>」</p>
+<p>「<strong>二叉查找树</strong>」（又称二叉排序树）是一种特殊的二叉树。++相对较小的值保存在左节点中，相对较大的值保存在右节点中++</p>
+<h3 id="3、js构建以一颗二叉树"><a href="#3、js构建以一颗二叉树" class="headerlink" title="3、js构建以一颗二叉树"></a>3、js构建以一颗二叉树</h3><p>用代码构建二叉树前，先要在脑中不断的重复二叉树的重要特点：</p>
+<ol>
+<li>二叉树有一个父节点和左右两个子节点；</li>
+<li>每个节点有一个值，称为节点值；</li>
+<li>左节点的值小于父节点的值，右节点的值大于父节点值。</li>
+</ol>
+<p>明白了这三点，我们就可以开始写代码了</p>
+<p><strong>构建二叉树的完整代码请看文末</strong></p>
+<h4 id="3-1-创建一个二叉树对象"><a href="#3-1-创建一个二叉树对象" class="headerlink" title="3.1 创建一个二叉树对象"></a>3.1 创建一个二叉树对象</h4><p>创建一个二叉树对象，定义一个对象来保存节点的值和其子节点</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">binaryTree</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="title class_">Node</span> = <span class="keyword">function</span> (<span class="params">key</span>)&#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">key</span> = key      <span class="comment">// 节点值</span></span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">left</span> = <span class="literal">null</span>    <span class="comment">// 该节点的左节点</span></span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">right</span> = <span class="literal">null</span>   <span class="comment">// 该节点的右节点</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">let</span> root = <span class="literal">null</span>         <span class="comment">// 根结点，初始值为null</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-2-创建一个构建二叉树的函数"><a href="#3-2-创建一个构建二叉树的函数" class="headerlink" title="3.2 创建一个构建二叉树的函数"></a>3.2 创建一个构建二叉树的函数</h4><p>在binaryTree中创建一个insert方法，通过insert方法向树中添加新节点</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">binaryTree</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="title class_">Node</span> = <span class="keyword">function</span> (<span class="params">key</span>)&#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">key</span> = key      <span class="comment">// 节点值</span></span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">left</span> = <span class="literal">null</span>    <span class="comment">// 该节点的左节点</span></span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">right</span> = <span class="literal">null</span>   <span class="comment">// 该节点的右节点</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">let</span> root = <span class="literal">null</span>         <span class="comment">// 根结点，初始值为null</span></span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">let</span> insertNode = <span class="keyword">function</span>(<span class="params">node, newNode</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span> (newNode.<span class="property">key</span> &lt; node.<span class="property">key</span>) &#123; <span class="comment">// 如果新节点的key值小于原来节点的key值，则该新节点作为原节点的左节点加入</span></span><br><span class="line">        <span class="keyword">if</span> (node.<span class="property">left</span>) &#123; <span class="comment">// 如果原节点的左节点已经存在，则继续执行insertNode方法</span></span><br><span class="line">          <span class="title function_">insertNode</span>(node.<span class="property">left</span>, newNode)</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123; <span class="comment">// 如果原节点的左节点不存在，则将新节点作为原节点的左节点</span></span><br><span class="line">          node.<span class="property">left</span> = newNode</span><br><span class="line">        &#125;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123; <span class="comment">// 如果新节点的key值大于原来节点的key值，则作为原节点的右节点加入</span></span><br><span class="line">        <span class="keyword">if</span> (node.<span class="property">right</span>) &#123;</span><br><span class="line">          <span class="title function_">insertNode</span>(node.<span class="property">right</span>, newNode)</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          node.<span class="property">right</span> = newNode</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">insert</span> = <span class="keyword">function</span>(<span class="params">key</span>)&#123;</span><br><span class="line">        <span class="keyword">let</span> newNode = <span class="keyword">new</span> <span class="title class_">Node</span>(key)  <span class="comment">// 插入节点时创建一个Node对象来保存节点的数据</span></span><br><span class="line">      <span class="keyword">if</span> (root) &#123;</span><br><span class="line">        <span class="title function_">insertNode</span>(root, newNode) <span class="comment">// 如果根结点已经存在，则通过insertNode方法进行插入</span></span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        root = newNode  <span class="comment">// 如果根结点为空，则把该节点作为根结点</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-3-构建一个二叉树"><a href="#3-3-构建一个二叉树" class="headerlink" title="3.3 构建一个二叉树"></a>3.3 构建一个二叉树</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> nodes = [<span class="number">8</span>, <span class="number">3</span>, <span class="number">10</span>, <span class="number">1</span>, <span class="number">6</span>, <span class="number">14</span>, <span class="number">4</span>, <span class="number">7</span>, <span class="number">13</span>]</span><br><span class="line"><span class="keyword">let</span> tree = <span class="keyword">new</span> <span class="title function_">binaryTree</span>()</span><br><span class="line">nodes.<span class="title function_">forEach</span>(<span class="keyword">function</span> (<span class="params">key</span>) &#123;</span><br><span class="line">  tree.<span class="title function_">insert</span>(key)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p><strong>至此，一个二叉树构建完毕</strong></p>
+<p>其实，只要你了解了二叉树的三个重要特点，构建一棵二叉树是不是还是比较容易的呢？</p>
+<p>可以将代码复制到自己的文件中进行单步调试，看看执行的结果是不是和前面描述的二叉树的特点相同。</p>
+<p><strong>感谢你的阅读</strong></p>
+<p><strong>完整代码：</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">binaryTree</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="title class_">Node</span> = <span class="keyword">function</span> (<span class="params">key</span>)&#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">key</span> = key      <span class="comment">// 节点值</span></span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">left</span> = <span class="literal">null</span>    <span class="comment">// 该节点的左节点</span></span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">right</span> = <span class="literal">null</span>   <span class="comment">// 该节点的右节点</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">let</span> root = <span class="literal">null</span>         <span class="comment">// 根结点，初始值为null</span></span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">let</span> insertNode = <span class="keyword">function</span>(<span class="params">node, newNode</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span> (newNode.<span class="property">key</span> &lt; node.<span class="property">key</span>) &#123; <span class="comment">// 如果新节点的key值小于原来节点的key值，则该新节点作为原节点的左节点加入</span></span><br><span class="line">        <span class="keyword">if</span> (node.<span class="property">left</span>) &#123; <span class="comment">// 如果原节点的左节点已经存在，则继续执行insertNode方法</span></span><br><span class="line">          <span class="title function_">insertNode</span>(node.<span class="property">left</span>, newNode)</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123; <span class="comment">// 如果原节点的左节点不存在，则将新节点作为原节点的左节点</span></span><br><span class="line">          node.<span class="property">left</span> = newNode</span><br><span class="line">        &#125;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123; <span class="comment">// 如果新节点的key值大于原来节点的key值，则作为原节点的右节点加入</span></span><br><span class="line">        <span class="keyword">if</span> (node.<span class="property">right</span>) &#123;</span><br><span class="line">          <span class="title function_">insertNode</span>(node.<span class="property">right</span>, newNode)</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          node.<span class="property">right</span> = newNode</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">insert</span> = <span class="keyword">function</span>(<span class="params">key</span>)&#123;</span><br><span class="line">        <span class="keyword">let</span> newNode = <span class="keyword">new</span> <span class="title class_">Node</span>(key)  <span class="comment">// 插入节点时创建一个Node对象来保存节点的数据</span></span><br><span class="line">      <span class="keyword">if</span> (root) &#123;</span><br><span class="line">        <span class="title function_">insertNode</span>(root, newNode) <span class="comment">// 如果根结点已经存在，则通过insertNode方法进行插入</span></span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        root = newNode  <span class="comment">// 如果根结点为空，则把该节点作为根结点</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> nodes = [<span class="number">8</span>, <span class="number">3</span>, <span class="number">10</span>, <span class="number">1</span>, <span class="number">6</span>, <span class="number">14</span>, <span class="number">4</span>, <span class="number">7</span>, <span class="number">13</span>]</span><br><span class="line">  <span class="keyword">let</span> tree = <span class="keyword">new</span> <span class="title function_">binaryTree</span>()</span><br><span class="line">  nodes.<span class="title function_">forEach</span>(<span class="keyword">function</span> (<span class="params">key</span>) &#123;</span><br><span class="line">    tree.<span class="title function_">insert</span>(key)</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/article/1564810311319" rel="prev" title="Cordova开发app——Websocket掉线问题">
+                  <i class="fa fa-angle-left"></i> Cordova开发app——Websocket掉线问题
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/article/1570545146986" rel="next" title="巩固下js中Call、Apply和Bind的区别">
+                  巩固下js中Call、Apply和Bind的区别 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+<div style="display: flex;justify-content: center;">
+  <div>
+    <div>
+      <img src="/images/mini-qrcode.png" width="120px" height="120px" alt="工具人助手小程序">
+    </div>
+    <div style="font-size: 12px">工具人助手小程序</div>
+  </div>
+</div>
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">渝ICP备17014610号 </a>
+      <img src="/images/beian.png" alt=""><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=50011702500392" rel="noopener" target="_blank">渝公网安备50011702500392号 </a>
+  </div>
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">重庆崽儿Brand</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/favicon.ico" color="#222">
+  <meta name="google-adsense-account" content="ca-pub-3799223021946643">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha256-CTSx/A06dm1B063156EVh15m6Y67pAjZZaQc89LLSrU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.brandhuang.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.18.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="XSS（Cross-site scripting），跨站脚本，一种在web应用中的计算机安全漏洞，它允许恶意web用户将代码植入到提供给其它用户使用的页面中。这类攻击通常包含了HTML以及用户端脚本语言。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端安全之初识XSS">
+<meta property="og:url" content="https://blog.brandhuang.com/article/1562496894167">
+<meta property="og:site_name" content="重庆崽儿Brand博客">
+<meta property="og:description" content="XSS（Cross-site scripting），跨站脚本，一种在web应用中的计算机安全漏洞，它允许恶意web用户将代码植入到提供给其它用户使用的页面中。这类攻击通常包含了HTML以及用户端脚本语言。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://static.brandhuang.com/admin-156249666211991.jpg">
+<meta property="article:published_time" content="2019-07-07T10:54:52.000Z">
+<meta property="article:modified_time" content="2025-01-05T07:09:43.082Z">
+<meta property="article:author" content="重庆崽儿Brand">
+<meta property="article:tag" content="重庆崽儿brand,vue,React,nuxt,blog,首页,JavaScript,js,css,html,web前端,前端开发,个人博客">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://static.brandhuang.com/admin-156249666211991.jpg">
+
+
+<link rel="canonical" href="https://blog.brandhuang.com/article/1562496894167.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.brandhuang.com/article/1562496894167","path":"/article/1562496894167.html","title":"前端安全之初识XSS"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>前端安全之初识XSS | 重庆崽儿Brand博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">重庆崽儿Brand博客</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E4%BB%80%E4%B9%88%E6%98%AFXSS%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">一、什么是XSS？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E3%80%81XSS%E7%9A%84%E6%94%BB%E5%87%BB%E6%96%B9%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">二、XSS的攻击方式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-%E5%8F%8D%E5%B0%84%E5%9E%8B"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 反射型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-%E5%AD%98%E5%82%A8%E5%9E%8B"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 存储型</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%89%E3%80%81XSS%E7%9A%84%E9%98%B2%E8%8C%83%E6%8E%AA%E6%96%BD"><span class="nav-number">3.</span> <span class="nav-text">三、XSS的防范措施</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-%E7%BC%96%E7%A0%81"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 编码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-%E8%BF%87%E6%BB%A4"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 过滤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-%E6%A0%A1%E6%AD%A3"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 校正</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="重庆崽儿Brand"
+      src="/images/author.jpg">
+  <p class="site-author-name" itemprop="name">重庆崽儿Brand</p>
+  <div class="site-description" itemprop="description">重庆崽儿brand的个人博客</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">67</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/CQBoyBrand" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;CQBoyBrand" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:brandhuang@qq.com" title="E-Mail → mailto:brandhuang@qq.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+<div style="display: flex;justify-content: center;">
+  <div>
+    <div>
+      <img src="/images/mini-qrcode.png" width="120px" height="120px" alt="工具人助手小程序">
+    </div>
+    <div style="font-size: 12px">工具人助手小程序</div>
+  </div>
+</div>
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.brandhuang.com/article/1562496894167">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/author.jpg">
+      <meta itemprop="name" content="重庆崽儿Brand">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="重庆崽儿Brand博客">
+      <meta itemprop="description" content="重庆崽儿brand的个人博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="前端安全之初识XSS | 重庆崽儿Brand博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          前端安全之初识XSS
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-07-07 18:54:52" itemprop="dateCreated datePublished" datetime="2019-07-07T18:54:52+08:00">2019-07-07</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>XSS（Cross-site scripting），跨站脚本，一种在web应用中的计算机安全漏洞，它允许恶意web用户将代码植入到提供给其它用户使用的页面中。这类攻击通常包含了HTML以及用户端脚本语言。</p>
+<span id="more"></span>
+
+<p><img src="http://static.brandhuang.com/admin-156249666211991.jpg" alt="前端安全"></p>
+<p>文章是学习了慕课网老师视频整理，视频地址：<a target="_blank" rel="noopener" href="https://www.imooc.com/learn/812">Web安全-XSS</a></p>
+<p><strong>文末有惊喜哦</strong></p>
+<h1 id="一、什么是XSS？"><a href="#一、什么是XSS？" class="headerlink" title="一、什么是XSS？"></a>一、什么是XSS？</h1><blockquote>
+<p>XSS（Cross-site scripting），跨站脚本，一种在web应用中的计算机安全漏洞，它允许恶意web用户将代码植入到提供给其它用户使用的页面中。这类攻击通常包含了HTML以及用户端脚本语言。</p>
+</blockquote>
+<h1 id="二、XSS的攻击方式"><a href="#二、XSS的攻击方式" class="headerlink" title="二、XSS的攻击方式"></a>二、XSS的攻击方式</h1><blockquote>
+<p>攻击有什么用？？&#x3D;&gt; 1、盗用cookie等，获取敏感信息；2、 破坏页面结构；3、其他～</p>
+</blockquote>
+<h2 id="2-1-反射型"><a href="#2-1-反射型" class="headerlink" title="2.1 反射型"></a>2.1 反射型</h2><blockquote>
+<p>发出请求时，XSS代码出现在URL中，作为输入提交到服务器，服务器端解析后响应，XSS代码随响应内容一起返回给浏览器，最后浏览器解析响应XSS代码。这个过程像一次反射，所以称为反射型XSS。</p>
+</blockquote>
+<p><strong>这里要注意的有几个点：</strong></p>
+<ol>
+<li>XSS代码出现在URL中；</li>
+<li>服务端解析响应</li>
+<li>浏览器解析代码</li>
+</ol>
+<p>这里的XSS代码通常是CSS，javascript或者HTML片段。</p>
+<h2 id="2-2-存储型"><a href="#2-2-存储型" class="headerlink" title="2.2 存储型"></a>2.2 存储型</h2><blockquote>
+<p>存储型XSS和反射型XSS的差别在于提交的代码会存储在服务端（数据库、内存、文件系统等），下次请求目标页面时，无需再次提交XSS代码。</p>
+</blockquote>
+<p>比如，当你访问一个人的博客时(不要搞我！)，你去他的文章下面添加一些评论，这些评论一般都会存下来，如果他的博客没有作什么处理，那么，一个简单的XSS攻击就算生效了：</p>
+<p>2.2.1 插入html片段：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;null&quot;</span> <span class="attr">onerror</span>=<span class="string">&quot;alert(“你被攻击了哦！”)&quot;</span> &gt;</span></span><br></pre></td></tr></table></figure>
+<p>当你在评论中插入了一个 <strong>img</strong> 标签，由于图片路径找不到，所以就会执行<strong>onerror</strong>方法，这样，onerror中的js脚本就被触发了，每次当用户访问到这篇文章，加载到这条评论时，都会触发这个弹窗。这样，一次简单的XSS就算生效了:relieved:。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">onclick</span>=<span class="string">&quot;alert(&#x27;你被攻击了哦！&#x27;)&quot;</span>&gt;</span>点我呀<span class="tag">&lt;/<span class="name">button</span>&gt;</span>  </span><br></pre></td></tr></table></figure>
+
+<p>向页面中插入一个按钮，诱导用户进行操作，进而被攻击了～</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">iframe</span>&gt;</span> <span class="tag">&lt;<span class="name">iframe</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>向页面中插入一个iframe(或者frame)，来插入一些小广告？～:smiling_imp:。</p>
+<p>2.2.2 插入CSS</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-tag">html</span>,<span class="selector-tag">body</span>&#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">display</span>:none<span class="meta">!important</span>;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">href</span>= <span class="string">&quot;&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>如果向你的页面中插入上面的代码，当别人访问你的页面时，将会什么也看不到:smiling_imp:.</p>
+<p>2.2.3 插入js代码</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"><span class="variable language_">window</span>.<span class="property">onload</span> = <span class="keyword">function</span> (<span class="params"></span>)&#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="title function_">alert</span>(<span class="string">&#x27;你被攻击了哦！&#x27;</span>)</span></span><br><span class="line"><span class="language-javascript">&#125;</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>如果向你的页面中插入上面的代码，同样也被攻击了～:smiling_imp:。</p>
+<p><strong>由此得出一点，慎用</strong>innerHTML****</p>
+<h1 id="三、XSS的防范措施"><a href="#三、XSS的防范措施" class="headerlink" title="三、XSS的防范措施"></a>三、XSS的防范措施</h1><h2 id="3-1-编码"><a href="#3-1-编码" class="headerlink" title="3.1 编码"></a>3.1 编码</h2><blockquote>
+<p>对用户输入的内容进行HTML Entity编码（字符转义），不能进行原样输出。</p>
+</blockquote>
+<p>在编写HTML页面时，需要用到”&lt;”、”&gt;”、”空格”、”&amp;”、”引号”直接输入这些符号时，会错误的把它们与标记混在一起，非常不利于编码。所以 需要对这些字符进行转义。</p>
+<table>
+<thead>
+<tr>
+<th>Character</th>
+<th>Entity</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&amp;</td>
+<td><code>&amp;amp;</code></td>
+</tr>
+<tr>
+<td>&lt;</td>
+<td><code>&amp;lt;</code></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>| <code>&amp;gt;</code><br>“ | <code>&amp;quot;</code><br>空格 | <code>&amp;nbsp;</code></p>
+</blockquote>
+<h2 id="3-2-过滤"><a href="#3-2-过滤" class="headerlink" title="3.2 过滤"></a>3.2 过滤</h2><blockquote>
+<p>过滤掉用户输入的一些不安全的内容</p>
+</blockquote>
+<p>3.2.1 移除用户上传的DOM属性，入onclick，onerror等</p>
+<p>3.2.2 移除用户上传的style节点，script节点，iframe节点等。</p>
+<h2 id="3-3-校正"><a href="#3-3-校正" class="headerlink" title="3.3 校正"></a>3.3 校正</h2><p>3.3.1  避免直接对HTML Entity进行解码</p>
+<p>3.3.2 使用DOM Parse转换，校正不配对的DOM标签</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/DOMParser">DOMParser:</a> 可以将存储在字符串中的 XML 或 HTML 源代码解析为一个 DOM Document。</p>
+</blockquote>
+<p><strong>我的博客使用了第三方库<a target="_blank" rel="noopener" href="https://github.com/fb55/htmlparser2">htmlparser2</a>进行过滤和校正</strong></p>
+<p><a target="_blank" rel="noopener" href="https://segmentfault.com/">segmentfault</a>上，这篇文章似乎被人成功攻击了，哈哈:<br><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000007059639">《用大白话谈谈XSS与CSRF》</a><br>打开这个链接，拖到文章最下面，，点击【显示更多评论】，有惊喜。。</p>
+<p><strong>道路千万条，安全第一条:yum:，作为前端开发的你对前端开发有一点认识了吗？</strong></p>
+<p><strong>感谢你的阅读，欢迎留言探讨～</strong></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/article/1562024771312" rel="prev" title="通过以一个标签，让双核浏览器使用指定内核">
+                  <i class="fa fa-angle-left"></i> 通过以一个标签，让双核浏览器使用指定内核
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/article/1562716874525" rel="next" title="Javascript笔记(一)">
+                  Javascript笔记(一) <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+<div style="display: flex;justify-content: center;">
+  <div>
+    <div>
+      <img src="/images/mini-qrcode.png" width="120px" height="120px" alt="工具人助手小程序">
+    </div>
+    <div style="font-size: 12px">工具人助手小程序</div>
+  </div>
+</div>
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">渝ICP备17014610号 </a>
+      <img src="/images/beian.png" alt=""><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=50011702500392" rel="noopener" target="_blank">渝公网安备50011702500392号 </a>
+  </div>
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">重庆崽儿Brand</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>

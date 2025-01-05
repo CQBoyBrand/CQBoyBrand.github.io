@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/favicon.ico" color="#222">
+  <meta name="google-adsense-account" content="ca-pub-3799223021946643">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha256-CTSx/A06dm1B063156EVh15m6Y67pAjZZaQc89LLSrU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.brandhuang.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.18.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="看似平常的事物，往往会蕴含的巨大的智慧。把看似平常的事物简单做好，可能很正常。如果能把平常的事物做精，做细，这个不平常。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【转载】[盘点] 项目中可以怎么优化图片">
+<meta property="og:url" content="https://blog.brandhuang.com/article/1552999449036">
+<meta property="og:site_name" content="重庆崽儿Brand博客">
+<meta property="og:description" content="看似平常的事物，往往会蕴含的巨大的智慧。把看似平常的事物简单做好，可能很正常。如果能把平常的事物做精，做细，这个不平常。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/11/18/16724f3cbf3be921?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/11/18/16724f3e9d3eadfe?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/11/18/16724f997a71dc1d?imageslim">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/11/18/16724f3e9d3eadfe?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/11/18/16724f4059a7d3fb?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/11/18/167250b5d653e5f6?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/11/16/1671c5c6662e5fdb?imageslim">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/11/16/1671c5c3e034b79d?imageslim">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/11/16/1671c62abd848fe7?imageslim">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/11/18/1672760d55a1e059?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/11/19/1672b97cbc84f222?imageslim">
+<meta property="article:published_time" content="2018-11-29T13:17:30.000Z">
+<meta property="article:modified_time" content="2025-01-05T07:00:38.923Z">
+<meta property="article:author" content="重庆崽儿Brand">
+<meta property="article:tag" content="重庆崽儿brand,vue,React,nuxt,blog,首页,JavaScript,js,css,html,web前端,前端开发,个人博客">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2018/11/18/16724f3cbf3be921?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+
+
+<link rel="canonical" href="https://blog.brandhuang.com/article/1552999449036.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.brandhuang.com/article/1552999449036","path":"/article/1552999449036.html","title":"【转载】[盘点] 项目中可以怎么优化图片"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>【转载】[盘点] 项目中可以怎么优化图片 | 重庆崽儿Brand博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">重庆崽儿Brand博客</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">1.前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%A6%82%E5%BF%B5%E7%94%A8%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">2.概念用法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9"><span class="nav-number">2.1.</span> <span class="nav-text">2-1.图片压缩</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-base64%E4%BB%A3%E6%9B%BF%E5%B0%8F%E5%9B%BE%E6%A0%87"><span class="nav-number">2.2.</span> <span class="nav-text">2-2.base64代替小图标</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-icon-font%E4%BB%A3%E6%9B%BF%E5%9B%BE%E6%A0%87"><span class="nav-number">2.3.</span> <span class="nav-text">2-3.icon-font代替图标</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-%E9%9B%AA%E7%A2%A7%E5%9B%BE"><span class="nav-number">2.4.</span> <span class="nav-text">2-4.雪碧图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-5-%E5%93%8D%E5%BA%94%E5%BC%8F%E5%9B%BE%E7%89%87"><span class="nav-number">2.5.</span> <span class="nav-text">2-5.响应式图片</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-7-%E7%AE%80%E5%8D%95%E5%9B%BE%E6%A0%87%E4%BD%BF%E7%94%A8-CSS-%E7%94%BB"><span class="nav-number">2.6.</span> <span class="nav-text">2-7.简单图标使用 CSS 画</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E9%9A%90%E5%BC%8F%E9%A2%84%E5%8A%A0%E8%BD%BD"><span class="nav-number">3.</span> <span class="nav-text">3.隐式预加载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E6%98%BE%E5%BC%8F%E9%A2%84%E5%8A%A0%E8%BD%BD"><span class="nav-number">4.</span> <span class="nav-text">4.显式预加载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E6%87%92%E5%8A%A0%E8%BD%BD"><span class="nav-number">5.</span> <span class="nav-text">5.懒加载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E5%9B%BE%E7%89%87%E6%B2%A1%E5%8A%A0%E8%BD%BD%E5%87%BA%E6%9D%A5%E6%98%BE%E7%A4%BA%E9%BB%98%E8%AE%A4%E5%9B%BE%E7%89%87"><span class="nav-number">6.</span> <span class="nav-text">6.图片没加载出来显示默认图片</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-%E5%B0%8F%E7%BB%93"><span class="nav-number">7.</span> <span class="nav-text">7.小结</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="重庆崽儿Brand"
+      src="/images/author.jpg">
+  <p class="site-author-name" itemprop="name">重庆崽儿Brand</p>
+  <div class="site-description" itemprop="description">重庆崽儿brand的个人博客</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">67</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/CQBoyBrand" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;CQBoyBrand" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:brandhuang@qq.com" title="E-Mail → mailto:brandhuang@qq.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+<div style="display: flex;justify-content: center;">
+  <div>
+    <div>
+      <img src="/images/mini-qrcode.png" width="120px" height="120px" alt="工具人助手小程序">
+    </div>
+    <div style="font-size: 12px">工具人助手小程序</div>
+  </div>
+</div>
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.brandhuang.com/article/1552999449036">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/author.jpg">
+      <meta itemprop="name" content="重庆崽儿Brand">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="重庆崽儿Brand博客">
+      <meta itemprop="description" content="重庆崽儿brand的个人博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="【转载】[盘点] 项目中可以怎么优化图片 | 重庆崽儿Brand博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【转载】[盘点] 项目中可以怎么优化图片
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-11-29 21:17:30" itemprop="dateCreated datePublished" datetime="2018-11-29T21:17:30+08:00">2018-11-29</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>看似平常的事物，往往会蕴含的巨大的智慧。把看似平常的事物简单做好，可能很正常。如果能把平常的事物做精，做细，这个不平常。</p>
+<span id="more"></span>
+
+
+<p>作者：<a target="_blank" rel="noopener" href="https://juejin.im/user/596d953ff265da6c2915c513">守候i</a><br>链接：<a target="_blank" rel="noopener" href="https://juejin.im/post/5bfac3bd51882566936071e1">https://juejin.im/post/5bfac3bd51882566936071e1</a><br>来源：<a target="_blank" rel="noopener" href="https://juejin.im/">掘金</a></p>
+<blockquote>
+<p>看似平常的事物，往往会蕴含的巨大的智慧。把看似平常的事物简单做好，可能很正常。如果能把平常的事物做精，做细，这个不平常。</p>
+</blockquote>
+<h3 id="1-前言"><a href="#1-前言" class="headerlink" title="1.前言"></a>1.前言</h3><p>每一个开发者在开发项目中，不可避免要和图片打交道，优化图片似乎也成了一个必修课。图片优化也不仅仅是性能上的优化，还要进行体验上的优化。至于怎么优化图片，没有固定的方式，只能具体场景，具体分析，选择合适的方案。不多说，下面也简单介绍下自己处理过，了解过的一些方式。如果大家有补充，建议。欢迎在评论区留言，交流学习下。</p>
+<h3 id="2-概念用法"><a href="#2-概念用法" class="headerlink" title="2.概念用法"></a>2.概念用法</h3><p><strong>‘概念用法’</strong> 这个词是自己乱起的，可能不太准确，是因为词穷了，不知道怎样形容。总得来说，这部分介绍的处理方式，就是讲一下就知道怎么用的方式，不需要怎么放代码，运行图等。只需要笼统的介绍一下，大家都会懂的一些方式。</p>
+<h4 id="2-1-图片压缩"><a href="#2-1-图片压缩" class="headerlink" title="2-1.图片压缩"></a>2-1.图片压缩</h4><p>这个没有隐含的意思，就是把图片的大小进行压缩。目前自己用的比较多的两个压缩网站是<a target="_blank" rel="noopener" href="https://tinypng.com/">TinyPng</a>和<a target="_blank" rel="noopener" href="https://zhitu.isux.us/">智图</a>。使用比较方便，品质也基本保持一致。</p>
+<h4 id="2-2-base64代替小图标"><a href="#2-2-base64代替小图标" class="headerlink" title="2-2.base64代替小图标"></a>2-2.base64代替小图标</h4><p>一些比较小的图标，使用 base64 编码代替可以减少 http 请求。但是有一个缺点就是转成 base64 后，编码会比原图更大，图片越大，差别就越大。1K左右的图标，转码出来的 base64 大概是 1.1K-2K。如果是 8K 的图片，转码出来的 base64 可能超过10K。就自己项目开发而言，只有小于 4K 的图标，才会进行转码。</p>
+<h4 id="2-3-icon-font代替图标"><a href="#2-3-icon-font代替图标" class="headerlink" title="2-3.icon-font代替图标"></a>2-3.icon-font代替图标</h4><p>由于 icon-font 看着是图片，实际上是字体。</p>
+<p>优点：就是在于可以矢量缩放，大小图标都可以使用，也可以改变颜色，使用也不麻烦。</p>
+<p>缺点：需要引入的文件不少(.svg,.ttf,.woff,.eot )。文件大小也比较大。建议是项目的图标要达到一定量才使用 icon-font，如果是几个图标，还是用图片吧。如果需要引入的图标多，就建议使用 icon-font。</p>
+<blockquote>
+<p>上面说的 icon-font 由于是字体，所以不支持多色图标。有了解到，现在 icon-font 可以支持多色图标了（<a target="_blank" rel="noopener" href="http://www.iconfont.cn/help/detail?spm=a313x.7781069.1998910419.15&helptype=code">symbol引用</a>）。只是兼容性不好。</p>
+</blockquote>
+<h4 id="2-4-雪碧图"><a href="#2-4-雪碧图" class="headerlink" title="2-4.雪碧图"></a>2-4.雪碧图</h4><p>雪碧图就是把很多小的图整合到一起，制作成一张比较大的图，然后作为元素的背景图片使用，定位到相应的图片即可。</p>
+<p>优点：减少了大量的 http 请求。</p>
+<p>缺点：背景定位和在移动端适配大小有点麻烦。</p>
+<blockquote>
+<p>除此之外，使用雪碧图，有两个个注意地方<br>1.不要把页面所有的图片都合并，比如把 logo 整合会破坏 html 的语义结构。图像复杂的 banner 也不要合并<br>2.尽量只把颜色相近的图标整合在一张图片上，如果图片颜色相差太大，合并出来的图片可能会很大。</p>
+</blockquote>
+<h4 id="2-5-响应式图片"><a href="#2-5-响应式图片" class="headerlink" title="2-5.响应式图片"></a>2-5.响应式图片</h4><p>如下例子，比如页面有这个图标</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/11/18/16724f3cbf3be921?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="https://user-gold-cdn.xitu.io/2018/11/18/16724f3cbf3be921?imageView2/0/w/1280/h/960/format/webp/ignore-error/1"></p>
+<p>在特定情况下会是下面这个颜色。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/11/18/16724f3e9d3eadfe?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="https://user-gold-cdn.xitu.io/2018/11/18/16724f3e9d3eadfe?imageView2/0/w/1280/h/960/format/webp/ignore-error/1"></p>
+<p>同一个图标，在不同的时候是不同的颜色。icon-font 可以通过改变 color 实现。或者用两张图片。除了这两个方法，用 CSS3 的混合模式，一样可以实现。两行代码搞定。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">			<span class="selector-tag">div</span>&#123;</span></span><br><span class="line"><span class="language-css">			    <span class="comment">/*容器必须有背景*/</span></span></span><br><span class="line"><span class="language-css">    			    <span class="attribute">background</span>: <span class="number">#09f</span>;</span></span><br><span class="line"><span class="language-css">    			    <span class="attribute">display</span>: inline-block;</span></span><br><span class="line"><span class="language-css">			&#125;</span></span><br><span class="line"><span class="language-css">			<span class="selector-tag">img</span>&#123;</span></span><br><span class="line"><span class="language-css">			    <span class="attribute">width</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">			    <span class="attribute">vertical-align</span>: top;</span></span><br><span class="line"><span class="language-css">			&#125;</span></span><br><span class="line"><span class="language-css">			<span class="selector-tag">img</span><span class="selector-pseudo">:hover</span>&#123;</span></span><br><span class="line"><span class="language-css">			    <span class="comment">/*设置混合模式*/</span></span></span><br><span class="line"><span class="language-css">			    <span class="attribute">mix-blend-mode</span>: lighten;</span></span><br><span class="line"><span class="language-css">			&#125;</span></span><br><span class="line"><span class="language-css">		</span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;images/icon-good.jpg&quot;</span> <span class="attr">class</span>=<span class="string">&quot;u-icon&quot;</span>/&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;images/icon-good.png&quot;</span> <span class="attr">class</span>=<span class="string">&quot;u-icon&quot;</span>/&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>运行效果：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/11/18/16724f997a71dc1d?imageslim" alt="https://user-gold-cdn.xitu.io/2018/11/18/16724f997a71dc1d?imageslim"></p>
+<p>展示完 mix-blend-mode，顺便提下 background-blend-mode 。用法基本一致，只是 mix-blend-mode 作用于 html 元素的混合模式，background-blend-mode 作用于元素背景的混合模式。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">			<span class="selector-tag">div</span>&#123;</span></span><br><span class="line"><span class="language-css">				<span class="attribute">display</span>: inline-block;</span></span><br><span class="line"><span class="language-css">				<span class="attribute">width</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">				<span class="attribute">height</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">				<span class="comment">/*设置背景*/</span></span></span><br><span class="line"><span class="language-css">				<span class="attribute">background</span>: <span class="built_in">url</span>(<span class="string">images/icon-good.jpg</span>) no-repeat center,<span class="number">#09f</span>;</span></span><br><span class="line"><span class="language-css">				<span class="attribute">background-size</span>:<span class="number">100%</span>;</span></span><br><span class="line"><span class="language-css">				<span class="comment">/*设置背景混合模式*/</span></span></span><br><span class="line"><span class="language-css">				<span class="attribute">background-blend-mode</span>: lighten;</span></span><br><span class="line"><span class="language-css">			&#125;</span></span><br><span class="line"><span class="language-css">			</span></span><br><span class="line"><span class="language-css">		</span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://user-gold-cdn.xitu.io/2018/11/18/16724f3e9d3eadfe?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="https://user-gold-cdn.xitu.io/2018/11/18/16724f3e9d3eadfe?imageView2/0/w/1280/h/960/format/webp/ignore-error/1"></p>
+<blockquote>
+<p>注意事项<br>1.图片必须是白底纯色图标<br>2.现代的浏览器，支持这个属性的浏览器</p>
+</blockquote>
+<p>如果图片是透明纯色背景，得到的结果会是这样</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/11/18/16724f4059a7d3fb?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="https://user-gold-cdn.xitu.io/2018/11/18/16724f4059a7d3fb?imageView2/0/w/1280/h/960/format/webp/ignore-error/1"></p>
+<p>受限篇幅影响，混合模式暂时就介绍这么多，以后发现好玩的再写文章。有兴趣可以看下面的参考资料。</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/coco1s/p/8080211.html">两行 CSS 代码实现图片任意颜色赋色技术</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/coco1s/p/6829372.html">不可思议的颜色混合模式 mix-blend-mode</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/coco1s/p/8124815.html">不可思议的混合模式 background-blend-mode</a></p>
+<h4 id="2-7-简单图标使用-CSS-画"><a href="#2-7-简单图标使用-CSS-画" class="headerlink" title="2-7.简单图标使用 CSS 画"></a>2-7.简单图标使用 CSS 画</h4><p>有一些简单的图标，可以使用 CSS 代替。比如下面这些</p>
+<p>自己而言，项目上画的最多的就是各种箭头</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/11/18/167250b5d653e5f6?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="https://user-gold-cdn.xitu.io/2018/11/18/167250b5d653e5f6?imageView2/0/w/1280/h/960/format/webp/ignore-error/1"></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">			<span class="selector-class">.icon-arrow-bottom</span> &#123; </span></span><br><span class="line"><span class="language-css">				<span class="attribute">width</span>: <span class="number">0</span>; </span></span><br><span class="line"><span class="language-css">				<span class="attribute">height</span>: <span class="number">0</span>; </span></span><br><span class="line"><span class="language-css">				<span class="attribute">border</span>: <span class="number">100px</span> solid <span class="number">#000</span>; </span></span><br><span class="line"><span class="language-css">				<span class="attribute">border-color</span>: <span class="number">#000</span> transparent transparent transparent; </span></span><br><span class="line"><span class="language-css">			&#125;</span></span><br><span class="line"><span class="language-css">			<span class="selector-class">.icon-arrow-top</span> &#123; </span></span><br><span class="line"><span class="language-css">				<span class="attribute">width</span>: <span class="number">0</span>; </span></span><br><span class="line"><span class="language-css">				<span class="attribute">height</span>: <span class="number">0</span>; </span></span><br><span class="line"><span class="language-css">				<span class="attribute">border</span>: <span class="number">100px</span> solid <span class="number">#000</span>; </span></span><br><span class="line"><span class="language-css">				<span class="attribute">border-color</span>: transparent transparent <span class="number">#000</span> transparent; </span></span><br><span class="line"><span class="language-css">			&#125;</span></span><br><span class="line"><span class="language-css">		</span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;icon-arrow-bottom&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;icon-arrow-top&quot;</span>&lt;/<span class="attr">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>优点：矢量缩放，颜色可变，不需要发送请求</p>
+<p>缺点：只适合用简单图形，1-5行 CSS 代码可以搞定的才建议用，超过的不建议。想得痛苦，写也麻烦，花时间也多，效果未必比其它方案好。建议还是图片 base64，或者 icon-font。</p>
+<p>这里就简单举个例子，需要知道 css3 还可以画什么图形。看参考资料。</p>
+<p><a target="_blank" rel="noopener" href="https://www.w3cplus.com/css/create-shapes-with-css">纯CSS制作的图形效果</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/coco1s/p/6992177.html">奇妙的 CSS shapes(CSS图形)</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/liu_jiachen/article/details/78634457">【CSS】用CSS绘制图标（图标大全）</a></p>
+<h3 id="3-隐式预加载"><a href="#3-隐式预加载" class="headerlink" title="3.隐式预加载"></a>3.隐式预加载</h3><blockquote>
+<p>1.从这里开始。下面的demo，有些会用到 <a target="_blank" rel="noopener" href="https://github.com/chenhuiYj/ec-do">ecDo</a> 这个库（自己写的一个常用函数库，欢迎star）。之前的文章有介绍过，这里就不再重复。大家不知道的时候点开看下相应的 API ，运行下，调试下就好。<br>2.为方便展示，下面的demo，除了懒加载，都有在 network 把网速调至了慢速的3G。</p>
+</blockquote>
+<p>有些项目图片比较多，如果一次性加载，用户等待时间会过久，可能会造成体验效果很差，甚至导致用户流失，很多网站用到的一个体验优化方式是隐式预加载。</p>
+<p>等待首屏加载，在用户看首屏（第一张大图）的时候，悄悄的加载其它图片（这里为了展示效果，在项目上其他的小图片不应在第一屏）。<br><img src="https://user-gold-cdn.xitu.io/2018/11/16/1671c5c6662e5fdb?imageslim" alt="https://user-gold-cdn.xitu.io/2018/11/16/1671c5c6662e5fdb?imageslim"></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;lawyerOtherImg.jpg&quot;</span>/&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>这是预加载的图片<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">img</span> <span class="attr">data-src</span>=<span class="string">&quot;https://materialdb.zhaoyl.com/201809/106796.jpg&quot;</span> <span class="attr">class</span>=<span class="string">&quot;load-img&quot;</span> <span class="attr">width</span>=<span class="string">&quot;100&quot;</span> <span class="attr">height</span>=<span class="string">&quot;100&quot;</span>/&gt;</span><span class="tag">&lt;<span class="name">img</span></span></span><br><span class="line"><span class="tag">            <span class="attr">data-src</span>=<span class="string">&quot;https://materialdb.zhaoyl.com/201809/105567.jpg&quot;</span> <span class="attr">class</span>=<span class="string">&quot;load-img&quot;</span> <span class="attr">width</span>=<span class="string">&quot;100&quot;</span> <span class="attr">height</span>=<span class="string">&quot;100&quot;</span>/&gt;</span><span class="tag">&lt;<span class="name">img</span></span></span><br><span class="line"><span class="tag">            <span class="attr">data-src</span>=<span class="string">&quot;https://materialdb.zhaoyl.com/201809/103097.jpg&quot;</span> <span class="attr">class</span>=<span class="string">&quot;load-img&quot;</span> <span class="attr">width</span>=<span class="string">&quot;100&quot;</span> <span class="attr">height</span>=<span class="string">&quot;100&quot;</span>/&gt;</span><span class="tag">&lt;<span class="name">img</span></span></span><br><span class="line"><span class="tag">            <span class="attr">data-src</span>=<span class="string">&quot;https://materialdb.zhaoyl.com/201809/10205.jpg&quot;</span> <span class="attr">class</span>=<span class="string">&quot;load-img&quot;</span> <span class="attr">width</span>=<span class="string">&quot;100&quot;</span> <span class="attr">height</span>=<span class="string">&quot;100&quot;</span>/&gt;</span><span class="tag">&lt;<span class="name">img</span></span></span><br><span class="line"><span class="tag">            <span class="attr">data-src</span>=<span class="string">&quot;https://materialdb.zhaoyl.com/201809/001.jpg&quot;</span> <span class="attr">class</span>=<span class="string">&quot;load-img&quot;</span> <span class="attr">width</span>=<span class="string">&quot;100&quot;</span> <span class="attr">height</span>=<span class="string">&quot;100&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//测试请先清空缓存</span></span><br><span class="line"><span class="variable language_">window</span>.<span class="property">onload</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    ecDo.<span class="title function_">loadImg</span>(<span class="string">&#x27;load-img&#x27;</span>, <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;加载完毕&#x27;</span>)</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>注意事项：</strong></p>
+<ol>
+<li>大概预测，用户看首屏的时候，很大概率会往下面看。</li>
+<li>该方式，用户等待的时间比较短。但是图片超大，要慎重考虑。因为该方式无法保证用户在浏览的时候，能把下一屏（比如浏览第一屏的时候，要加载第二屏）的图片加载完毕，让用户无感知。如果切换的下一屏还没加载完毕，也可能会影响体验。<br>demo: <a target="_blank" rel="noopener" href="https://github.com/chenhuiYj/ec-do/blob/master/example/loadImg.html">DEMO</a></li>
+</ol>
+<h3 id="4-显式预加载"><a href="#4-显式预加载" class="headerlink" title="4.显式预加载"></a>4.显式预加载</h3><p>告诉用户正在加载，等到加载完了再一次性渲染在页面上。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/11/16/1671c5c3e034b79d?imageslim" alt="https://user-gold-cdn.xitu.io/2018/11/16/1671c5c3e034b79d?imageslim"></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-tag">div</span>&#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">display</span>: none;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">&quot;p&quot;</span>&gt;</span>显示预加载进行中<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;div&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">img</span> <span class="attr">data-src</span>=<span class="string">&quot;https://materialdb.zhaoyl.com/201809/106796.jpg&quot;</span> <span class="attr">class</span>=<span class="string">&quot;load-img&quot;</span> <span class="attr">width</span>=<span class="string">&quot;100&quot;</span> <span class="attr">height</span>=<span class="string">&quot;100&quot;</span>/&gt;</span><span class="tag">&lt;<span class="name">img</span></span></span><br><span class="line"><span class="tag">            <span class="attr">data-src</span>=<span class="string">&quot;https://materialdb.zhaoyl.com/201809/105567.jpg&quot;</span> <span class="attr">class</span>=<span class="string">&quot;load-img&quot;</span> <span class="attr">width</span>=<span class="string">&quot;100&quot;</span> <span class="attr">height</span>=<span class="string">&quot;100&quot;</span>/&gt;</span><span class="tag">&lt;<span class="name">img</span></span></span><br><span class="line"><span class="tag">            <span class="attr">data-src</span>=<span class="string">&quot;https://materialdb.zhaoyl.com/201809/103097.jpg&quot;</span> <span class="attr">class</span>=<span class="string">&quot;load-img&quot;</span> <span class="attr">width</span>=<span class="string">&quot;100&quot;</span> <span class="attr">height</span>=<span class="string">&quot;100&quot;</span>/&gt;</span><span class="tag">&lt;<span class="name">img</span></span></span><br><span class="line"><span class="tag">            <span class="attr">data-src</span>=<span class="string">&quot;https://materialdb.zhaoyl.com/201809/10205.jpg&quot;</span> <span class="attr">class</span>=<span class="string">&quot;load-img&quot;</span> <span class="attr">width</span>=<span class="string">&quot;100&quot;</span> <span class="attr">height</span>=<span class="string">&quot;100&quot;</span>/&gt;</span><span class="tag">&lt;<span class="name">img</span></span></span><br><span class="line"><span class="tag">            <span class="attr">data-src</span>=<span class="string">&quot;https://materialdb.zhaoyl.com/201809/001.jpg&quot;</span> <span class="attr">class</span>=<span class="string">&quot;load-img&quot;</span> <span class="attr">width</span>=<span class="string">&quot;100&quot;</span> <span class="attr">height</span>=<span class="string">&quot;100&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> oP1=<span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;p&#x27;</span>);</span><br><span class="line"><span class="keyword">let</span> oDiv=<span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;div&#x27;</span>);</span><br><span class="line"><span class="comment">//测试请先清空缓存</span></span><br><span class="line"><span class="variable language_">window</span>.<span class="property">onload</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    ecDo.<span class="title function_">loadImg</span>(<span class="string">&#x27;load-img&#x27;</span>, <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">        oDiv.<span class="property">style</span>.<span class="property">display</span>=<span class="string">&#x27;block&#x27;</span>;</span><br><span class="line">        oP1.<span class="property">style</span>.<span class="property">display</span>=<span class="string">&#x27;none&#x27;</span>;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>注意事项：</strong></p>
+<ol>
+<li><p>大概预测，用户看首屏的时候，很大概率会往下面看。</p>
+</li>
+<li><p>该方式好处在于加载完毕之后，就所有图片都加载完毕了，体验比较好。如果图片全部过大，加载时间会比较长，loading 的时间也会很长，会影响体验。<br>DEMO:<a target="_blank" rel="noopener" href="https://github.com/chenhuiYj/ec-do/blob/master/example/loadImg1.html">DEMO</a></p>
+</li>
+</ol>
+<h3 id="5-懒加载"><a href="#5-懒加载" class="headerlink" title="5.懒加载"></a>5.懒加载</h3><p>这个大家应该很熟悉了，简单点说就是图片一开始不加载，当用户浏览到什么位置的时候，相应位置得图片就加载出来。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/11/16/1671c62abd848fe7?imageslim" alt="https://user-gold-cdn.xitu.io/2018/11/16/1671c62abd848fe7?imageslim"></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">data-src</span>=<span class="string">&quot;lawyerOtherImg.jpg&quot;</span> <span class="attr">class</span>=<span class="string">&quot;load-img&quot;</span> <span class="attr">width</span>=<span class="string">&#x27;528&#x27;</span> <span class="attr">height</span>=<span class="string">&#x27;304&#x27;</span>/&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">data-src</span>=<span class="string">&quot;lawyerOtherImg.jpg&quot;</span> <span class="attr">class</span>=<span class="string">&quot;load-img&quot;</span> <span class="attr">width</span>=<span class="string">&#x27;528&#x27;</span> <span class="attr">height</span>=<span class="string">&#x27;304&#x27;</span>/&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">data-src</span>=<span class="string">&quot;lawyerOtherImg.jpg&quot;</span> <span class="attr">class</span>=<span class="string">&quot;load-img&quot;</span> <span class="attr">width</span>=<span class="string">&#x27;528&#x27;</span> <span class="attr">height</span>=<span class="string">&#x27;304&#x27;</span>/&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">data-src</span>=<span class="string">&quot;https://materialdb.zhaoyl.com/201809/105567.jpg&quot;</span> <span class="attr">class</span>=<span class="string">&quot;load-img&quot;</span> <span class="attr">width</span>=<span class="string">&#x27;528&#x27;</span> <span class="attr">height</span>=<span class="string">&#x27;304&#x27;</span>/&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">data-src</span>=<span class="string">&quot;https://materialdb.zhaoyl.com/201809/106796.jpg&quot;</span> <span class="attr">class</span>=<span class="string">&quot;load-img&quot;</span> <span class="attr">width</span>=<span class="string">&#x27;528&#x27;</span> <span class="attr">height</span>=<span class="string">&#x27;304&#x27;</span>/&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">data-src</span>=<span class="string">&quot;https://materialdb.zhaoyl.com/201809/103097.jpg&quot;</span> <span class="attr">class</span>=<span class="string">&quot;load-img&quot;</span> <span class="attr">width</span>=<span class="string">&#x27;528&#x27;</span> <span class="attr">height</span>=<span class="string">&#x27;304&#x27;</span>/&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">data-src</span>=<span class="string">&quot;https://materialdb.zhaoyl.com/201809/10205.jpg&quot;</span> <span class="attr">class</span>=<span class="string">&quot;load-img&quot;</span> <span class="attr">width</span>=<span class="string">&#x27;528&#x27;</span> <span class="attr">height</span>=<span class="string">&#x27;304&#x27;</span>/&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">data-src</span>=<span class="string">&quot;https://materialdb.zhaoyl.com/201809/001.jpg&quot;</span> <span class="attr">class</span>=<span class="string">&quot;load-img&quot;</span> <span class="attr">width</span>=<span class="string">&#x27;528&#x27;</span> <span class="attr">height</span>=<span class="string">&#x27;304&#x27;</span>/&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">window</span>.<span class="property">onload</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">//根据load-img 这个 class 遍历，元素距离页面底部 100像素的时候就开始加载，加载错误就显示error.jpg</span></span><br><span class="line">    ecDo.<span class="title function_">delayFn</span>(ecDo.<span class="title function_">lazyLoadImg</span>(<span class="string">&#x27;load-img&#x27;</span>, <span class="number">100</span>, <span class="string">&#x27;error.jpg&#x27;</span>),<span class="number">100</span>,<span class="number">200</span>);</span><br><span class="line">    <span class="variable language_">window</span>.<span class="property">onscroll</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">        ecDo.<span class="title function_">delayFn</span>(ecDo.<span class="title function_">lazyLoadImg</span>(<span class="string">&#x27;load-img&#x27;</span>, <span class="number">100</span>, <span class="string">&#x27;error.jpg&#x27;</span>),<span class="number">100</span>,<span class="number">200</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://github.com/chenhuiYj/ec-do/blob/master/example/lazyLoadImg.html">DEMO</a></p>
+<h3 id="6-图片没加载出来显示默认图片"><a href="#6-图片没加载出来显示默认图片" class="headerlink" title="6.图片没加载出来显示默认图片"></a>6.图片没加载出来显示默认图片</h3><p>这个例子，当网速比较慢的时候，想要加载的图片没有马上出来。或者图片路径错误，这个时候页面可能会出现一部分空白的地方，或者页面布局会出现错乱，比较常用的做法是先显示一张 loading 图或者是 logo 图。告诉用户，这里是图片，正在加载，体验上会好很多，比如下面这个例子。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/11/18/1672760d55a1e059?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="https://user-gold-cdn.xitu.io/2018/11/18/1672760d55a1e059?imageView2/0/w/1280/h/960/format/webp/ignore-error/1"></p>
+<p>下面也简单的实现一下。</p>
+<p>比如网站上有这样的图片</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;error.jpg&quot;</span> <span class="attr">data-src</span>=<span class="string">&quot;https://materialdb.zhaoyl.com/201809/105567.jpg&quot;</span> <span class="attr">width</span>=<span class="string">&quot;264&quot;</span>/&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;error.jpg&quot;</span> <span class="attr">data-src</span>=<span class="string">&quot;https://materialdb.zhaoyl.com/201809/106796.jpg&quot;</span> <span class="attr">width</span>=<span class="string">&#x27;264&#x27;</span>/&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;error.jpg&quot;</span> <span class="attr">data-src</span>=<span class="string">&quot;https://materialdb.zhaoyl.com/201809/1067961.jpg&quot;</span> <span class="attr">width</span>=<span class="string">&#x27;264&#x27;</span>/&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在 network 把网速调至了慢速的3G，以方便调试。</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//测试前请先清空缓存</span></span><br><span class="line"><span class="variable language_">window</span>.<span class="property">onload</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> oImg=<span class="variable language_">document</span>.<span class="title function_">getElementsByTagName</span>(<span class="string">&#x27;img&#x27;</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">0</span>;i&lt;oImg.<span class="property">length</span>;i++)&#123;</span><br><span class="line">        ecDo.<span class="title function_">aftLoadImg</span>(&#123;</span><br><span class="line">            <span class="attr">dom</span>:oImg[i],</span><br><span class="line">            <span class="attr">url</span>:oImg[i].<span class="property">dataset</span>.<span class="property">src</span>,</span><br><span class="line">            <span class="attr">errorUrl</span>:oImg[i].<span class="property">src</span></span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://user-gold-cdn.xitu.io/2018/11/19/1672b97cbc84f222?imageslim" alt="https://user-gold-cdn.xitu.io/2018/11/19/1672b97cbc84f222?imageslim"></p>
+<p>可以看到，一开始显示的是一张默认图片，等需要加载的图片，加载完了之后，再加载需要加载的图片。（最后一张图片，是故意把路径写错，所以出来的图片是之前的图片）<br><a target="_blank" rel="noopener" href="https://github.com/chenhuiYj/ec-do/blob/master/example/aftLoadImg.html">DEMO</a></p>
+<h3 id="7-小结"><a href="#7-小结" class="headerlink" title="7.小结"></a>7.小结</h3><p>关于项目上，优化图片的各种方式，自己用过的，听过的，大概就在这里了。实现方案，也不敢说是最好。如果大家有更好的想法，建议，欢迎在评论区留言。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/article/1552999235260" rel="prev" title="杭漂生活开启">
+                  <i class="fa fa-angle-left"></i> 杭漂生活开启
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/article/1552997858246" rel="next" title="Cordova开发app——使用插件录音并上传服务器">
+                  Cordova开发app——使用插件录音并上传服务器 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+<div style="display: flex;justify-content: center;">
+  <div>
+    <div>
+      <img src="/images/mini-qrcode.png" width="120px" height="120px" alt="工具人助手小程序">
+    </div>
+    <div style="font-size: 12px">工具人助手小程序</div>
+  </div>
+</div>
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">渝ICP备17014610号 </a>
+      <img src="/images/beian.png" alt=""><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=50011702500392" rel="noopener" target="_blank">渝公网安备50011702500392号 </a>
+  </div>
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">重庆崽儿Brand</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>
